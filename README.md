@@ -2,6 +2,17 @@
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](README.md) [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](README.pt-br.md)
 
-This is a personal project to visualize places I've virtually visited in the world in [GeoGuessr](https://www.geoguessr.com/). It tracks my guesses across different game modes through a userscript and stores them in a database. The data is then displayed in a [web application](https://geostats-xi.vercel.app) with location comparisons and some country statistics.
+This is a project to record locations that I have visited in [GeoGuessr](https://www.geoguessr.com/).
 
-The main tools used in this project were Supabase, Next.js, TypeScript, Tailwind CSS and MapLibre GL (in addition to the userscript to persist data, which was written in JavaScript).
+### How It Works
+
+A userscript captures guesses and their respective locations during gameplay, storing the relevant information in a database. This data is then displayed in a [web application](https://geostats.info), which provides a detailed history of each round (showing the game type, the guess, the actual location, the distance, and the time taken), as well as a map with all visited locations and some statistics by country.
+
+### Tools Used
+
+- JavaScript
+- TypeScript
+- Next.js
+- Supabase
+- Tailwind CSS
+- MapLibre GL JS
