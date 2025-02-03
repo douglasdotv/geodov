@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiZoomIn } from 'react-icons/fi';
 import { VisitedPlacesMap } from '@/components/map/VisitedPlacesMap';
 import { Spinner } from '@/components/shared/Spinner';
 
 export default function MapPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isZoomTooLow, setIsZoomTooLow] = useState(true);
 
   return (
     <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
@@ -29,8 +30,17 @@ export default function MapPage() {
               <Spinner />
             </div>
           )}
+          {isZoomTooLow && (
+            <div className='absolute top-4 left-1/2 -translate-x-1/2 z-10 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-4 py-2 rounded-lg shadow-sm border border-blue-200 dark:border-blue-800 flex items-center gap-2 animate-[fadeIn_0.2s_ease-out]'>
+              <FiZoomIn className='flex-shrink-0' />
+              <span>Zoom in to see locations</span>
+            </div>
+          )}
           <div className='w-full h-[80vh]'>
-            <VisitedPlacesMap onLoadingChange={setIsLoading} />
+            <VisitedPlacesMap
+              onLoadingChange={setIsLoading}
+              onZoomChange={setIsZoomTooLow}
+            />
           </div>
         </div>
       </div>
