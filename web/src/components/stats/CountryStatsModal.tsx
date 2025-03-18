@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import lookup from 'country-code-lookup';
 import { CountryFlag } from '@/components/shared/CountryFlag';
 import { CountryStats } from '@/types/stats';
 import { formatDistance } from '@/lib/utils';
+import { Spinner } from '@/components/shared/Spinner';
 
 interface CountryStatsModalProps {
   readonly isOpen: boolean;
@@ -18,6 +20,10 @@ export function CountryStatsModal({
   stats,
 }: CountryStatsModalProps) {
   const [showAllCountries, setShowAllCountries] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [pendingCountry, setPendingCountry] = useState<string | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const getCountryCode = (countryName: string) => {
     try {
@@ -45,6 +51,18 @@ export function CountryStatsModal({
     ? [...sortedStats].sort((a, b) => a.country.localeCompare(b.country))
     : null;
 
+  const navigateToCountry = (country: string) => {
+    setPendingCountry(country);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('country', country);
+    params.set('page', '1');
+
+    startTransition(() => {
+      router.push(`?${params.toString()}`);
+      onClose();
+    });
+  };
+
   if (!isOpen) return null;
 
   const overallStats = {
@@ -64,16 +82,21 @@ export function CountryStatsModal({
 
   const renderStatRow = (stat: CountryStats) => {
     const countryCode = getCountryCode(stat.country);
+    const isPendingThisCountry = isPending && pendingCountry === stat.country;
+
     return (
-      <div
+      <button
         key={stat.country}
-        className='flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded'
+        onClick={() => navigateToCountry(stat.country)}
+        className='w-full text-left flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors'
+        disabled={isPending}
       >
         <div className='flex items-center gap-2'>
           {countryCode && (
             <CountryFlag countryCode={countryCode} countryName={stat.country} />
           )}
           <span>{stat.country}</span>
+          {isPendingThisCountry && <Spinner />}
         </div>
         <div className='flex items-center gap-4'>
           <span className='text-sm text-gray-500 dark:text-gray-400'>
@@ -83,7 +106,7 @@ export function CountryStatsModal({
             {stat.correctPercentage.toFixed(1)}%
           </span>
         </div>
-      </div>
+      </button>
     );
   };
 
@@ -95,6 +118,7 @@ export function CountryStatsModal({
           <button
             onClick={onClose}
             className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+            disabled={isPending}
           >
             ✕
           </button>
@@ -132,9 +156,11 @@ export function CountryStatsModal({
           <div className='mt-8 flex justify-center'>
             <button
               onClick={() => setShowAllCountries(!showAllCountries)}
-              className='px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors'
+              className='px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-2'
+              disabled={isPending}
             >
               {showAllCountries ? 'Hide All Countries' : 'Show All Countries'}
+              {isPending && pendingCountry === null && <Spinner />}
             </button>
           </div>
 
