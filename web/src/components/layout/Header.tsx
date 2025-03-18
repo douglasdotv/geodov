@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useTransition, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import { Audiowide } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { AboutModal } from '@/components/about/AboutModal';
@@ -11,9 +11,9 @@ import { getCountryStats } from '@/app/actions';
 import { CountryStats } from '@/types/stats';
 import { Spinner } from '@/components/shared/Spinner';
 
-const audiowide = Audiowide({
-  weight: '400',
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
+  weight: ['400', '500', '700'],
 });
 
 export function Header() {
@@ -68,76 +68,80 @@ export function Header() {
 
   return (
     <>
-      <header className='border-b border-gray-300 dark:border-gray-800'>
+      <header className='border-b border-gray-200 dark:border-gray-800 backdrop-blur-sm bg-white/95 dark:bg-gray-950/90'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16'>
-            <div className='flex items-center'>
+            <div className='flex items-center gap-1'>
               <button
                 onClick={handleHomeClick}
-                className={`text-xl font-bold ${audiowide.className} cursor-pointer flex items-center gap-2`}
+                className={`text-xl font-semibold ${spaceGrotesk.className} cursor-pointer flex items-center gap-2`}
                 aria-label='Navigate to home page'
               >
-                GeoStats
+                <span
+                  className={`${spaceGrotesk.className} bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-300 dark:to-purple-300 bg-clip-text text-transparent font-bold tracking-tighter`}
+                >
+                  GEOSTATS
+                </span>
                 {isPendingGeoStats && <Spinner />}
               </button>
               <ThemeToggle />
             </div>
 
-            <div className='hidden md:flex items-center gap-4'>
+            <nav className='hidden md:flex items-center gap-2'>
               <div className='flex items-center gap-2'>
                 <button
                   onClick={handleMapClick}
-                  className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                  className='px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors'
                   disabled={isPendingVisitedPlaces}
                 >
-                  <span>Visited Places</span>
+                  Visited Places
                 </button>
                 {isPendingVisitedPlaces && <Spinner />}
               </div>
               <button
                 onClick={handleCountryStatsClick}
-                className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                className='px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors'
               >
                 Country Stats
               </button>
               <button
                 onClick={handleAboutClick}
-                className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                className='px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors'
               >
                 About
               </button>
-            </div>
+            </nav>
 
             <button
               onClick={toggleMenu}
-              className='md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+              className='md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
               aria-label='Toggle menu'
             >
-              {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              {isMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
             </button>
           </div>
 
           {isMenuOpen && (
-            <div className='md:hidden py-4 space-y-2 animate-[fadeIn_0.2s_ease-out]'>
+            <div className='md:hidden pb-4 space-y-1 animate-[fadeIn_0.1s_ease-out]'>
               <div className='flex items-center gap-2'>
                 <button
                   onClick={handleMapClick}
-                  className='w-full px-4 py-2 text-left rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                  className='w-full px-3 py-2 text-left rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
                   disabled={isPendingVisitedPlaces}
                 >
-                  <span>Visited Places</span>
+                  Visited Places
                 </button>
                 {isPendingVisitedPlaces && <Spinner />}
               </div>
               <button
                 onClick={handleCountryStatsClick}
-                className='w-full px-4 py-2 text-left rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                className='w-full px-3 py-2 text-left rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
               >
                 Country Stats
               </button>
               <button
                 onClick={handleAboutClick}
-                className='w-full px-4 py-2 text-left rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                className='w-full px-3 py-2 text-left rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
               >
                 About
               </button>
