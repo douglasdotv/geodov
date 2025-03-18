@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useTransition, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Audiowide } from 'next/font/google';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { AboutModal } from '@/components/about/AboutModal';
-import { CountryStatsButton } from '@/components/stats/CountryStatsButton';
+import { CountryStatsModal } from '@/components/stats/CountryStatsModal';
 import { getCountryStats } from '@/app/actions';
 import { CountryStats } from '@/types/stats';
 import { Spinner } from '@/components/shared/Spinner';
@@ -19,6 +19,7 @@ const audiowide = Audiowide({
 export function Header() {
   const [countryStats, setCountryStats] = useState<CountryStats[]>([]);
   const [showAbout, setShowAbout] = useState(false);
+  const [showCountryStats, setShowCountryStats] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPendingGeoStats, startTransitionGeoStats] = useTransition();
   const [isPendingVisitedPlaces, startTransitionVisitedPlaces] =
@@ -41,6 +42,11 @@ export function Header() {
 
   const handleAboutClick = () => {
     setShowAbout(true);
+    setIsMenuOpen(false);
+  };
+
+  const handleCountryStatsClick = () => {
+    setShowCountryStats(true);
     setIsMenuOpen(false);
   };
 
@@ -88,7 +94,12 @@ export function Header() {
                 </button>
                 {isPendingVisitedPlaces && <Spinner />}
               </div>
-              <CountryStatsButton stats={countryStats} />
+              <button
+                onClick={handleCountryStatsClick}
+                className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+              >
+                Country Stats
+              </button>
               <button
                 onClick={handleAboutClick}
                 className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
@@ -119,15 +130,7 @@ export function Header() {
                 {isPendingVisitedPlaces && <Spinner />}
               </div>
               <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  const statsButton = document.querySelector(
-                    '[data-testid="country-stats-button"]',
-                  );
-                  if (statsButton instanceof HTMLButtonElement) {
-                    statsButton.click();
-                  }
-                }}
+                onClick={handleCountryStatsClick}
                 className='w-full px-4 py-2 text-left rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
               >
                 Country Stats
@@ -144,6 +147,22 @@ export function Header() {
       </header>
 
       <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
+
+      {showCountryStats && (
+        <Suspense
+          fallback={
+            <div className='flex items-center justify-center h-screen'>
+              Loading stats...
+            </div>
+          }
+        >
+          <CountryStatsModal
+            isOpen={showCountryStats}
+            onClose={() => setShowCountryStats(false)}
+            stats={countryStats}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

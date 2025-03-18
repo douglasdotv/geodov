@@ -1,30 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { CountryStatsModal } from '@/components/stats/CountryStatsModal';
-import { CountryStats } from '@/types/stats';
-
 interface CountryStatsButtonProps {
-  readonly stats: CountryStats[];
+  readonly onClick: () => void;
 }
 
-export function CountryStatsButton({ stats }: CountryStatsButtonProps) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+export function CountryStatsButton({ onClick }: CountryStatsButtonProps) {
   return (
-    <>
-      <button
-        onClick={() => setIsDialogOpen(true)}
-        className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
-      >
-        Country Stats
-      </button>
-
-      <CountryStatsModal
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        stats={stats}
-      />
-    </>
+    <button
+      onClick={onClick}
+      className='px-4 py-2 rounded-md border border-gray-400 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+    >
+      Country Stats
+    </button>
   );
 }

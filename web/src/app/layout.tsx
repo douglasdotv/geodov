@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { Suspense } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ThemeProvider } from '@/providers/ThemeProvider';
@@ -54,7 +55,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col transition-colors duration-200 ease-in-out`}
       >
         <ThemeProvider>
-          <Header />
+          <Suspense
+            fallback={
+              <div className='h-16 border-b border-gray-200 dark:border-gray-800'></div>
+            }
+          >
+            <Header />
+          </Suspense>
           <main className='flex-1'>{children}</main>
           <Footer />
         </ThemeProvider>
