@@ -51,7 +51,10 @@ export function CountryStatsModal({
     totalGuesses: stats.reduce((acc, stat) => acc + stat.totalGuesses, 0),
     correctGuesses: stats.reduce((acc, stat) => acc + stat.correctGuesses, 0),
     averageDistance:
-      stats.reduce((acc, stat) => acc + stat.averageDistance, 0) / stats.length,
+      stats.reduce(
+        (acc, stat) => acc + stat.averageDistance * stat.totalGuesses,
+        0,
+      ) / stats.reduce((acc, stat) => acc + stat.totalGuesses, 0),
   };
 
   const overallPercentage = (
