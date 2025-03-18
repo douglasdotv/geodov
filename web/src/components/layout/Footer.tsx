@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { FiGithub } from 'react-icons/fi';
-import { GEOGUESSR_PROFILE_LINK } from '@/lib/constants';
 
 export function Footer() {
   const playerName = process.env.G_USER ?? 'Mysterious User';
+  const profileLink = process.env.G_PROFILE ?? 'https://www.geoguessr.com/';
 
   return (
     <footer className='mt-auto py-6 border-t border-gray-300 dark:border-gray-800'>
@@ -13,7 +13,7 @@ export function Footer() {
             GeoStats for
           </span>{' '}
           <Link
-            href={GEOGUESSR_PROFILE_LINK}
+            href={profileLink}
             target='_blank'
             rel='noopener noreferrer'
             className='text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
