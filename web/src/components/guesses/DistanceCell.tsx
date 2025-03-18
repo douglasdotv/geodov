@@ -1,7 +1,7 @@
 import { GuessQuality } from '@/types/guess';
 import { getGuessQuality, formatDistance } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-import { FiStar } from 'react-icons/fi';
+import { FiZap } from 'react-icons/fi';
 
 const bulletColors: Record<GuessQuality, string> = {
   [GuessQuality.Good]: 'bg-green-400',
@@ -26,10 +26,11 @@ export function DistanceCell({ distance }: DistanceCellProps) {
       <span>{formatDistance(distance)}</span>
 
       {isVeryClose && !isGuessDetailsPage && (
-        <FiStar
-          className='text-blue-400 fill-current animate-bounce ml-1'
+        <FiZap
+          className='text-amber-500 ml-1'
+          size={12}
           data-tooltip-id='guess-row-tooltip'
-          data-tooltip-content='Nice guess! Less than 1 km away!'
+          data-tooltip-content='Nice guess!'
         />
       )}
     </div>
