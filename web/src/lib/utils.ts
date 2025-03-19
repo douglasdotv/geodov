@@ -77,18 +77,30 @@ export function formatRelativeTime(timestamp: string) {
     return formatUnit(days, 'day');
   }
 
-  const weeks = Math.floor(days / 7);
-  if (weeks < 4) {
+  if (days < 30) {
+    const weeks = Math.floor(days / 7);
     return formatUnit(weeks, 'week');
   }
 
-  const months = Math.floor(days / 30);
-  if (months < 12) {
+  if (days < 365) {
+    const months = Math.floor(days / 30.44);
     return formatUnit(months, 'month');
   }
 
-  const years = Math.floor(days / 365);
+  const years = Math.floor(days / 365.25);
   return formatUnit(years, 'year');
+}
+
+export function formatFullDateTime(timestamp: string): string {
+  const date = new Date(timestamp);
+  return date.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
 }
 
 function formatUnit(value: number, unit: string) {

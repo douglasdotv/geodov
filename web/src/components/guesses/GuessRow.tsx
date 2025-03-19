@@ -6,6 +6,7 @@ import {
   getTimeToGuess,
   formatMovementRestrictions,
   formatRelativeTime,
+  formatFullDateTime,
 } from '@/lib/utils';
 import { GOOGLE_STREET_VIEW_BASE_URL } from '@/lib/constants';
 import {
@@ -116,7 +117,11 @@ export function GuessRow({
       <td className='px-4 py-3 text-center'>
         <DistanceCell distance={guess.distance} />
       </td>
-      <td className='px-4 py-3 text-center whitespace-nowrap text-gray-600 dark:text-gray-300'>
+      <td
+        className='px-4 py-3 text-center whitespace-nowrap text-gray-600 dark:text-gray-300'
+        data-tooltip-id='guess-row-tooltip'
+        data-tooltip-content={formatFullDateTime(guess.guess_time)}
+      >
         {formatRelativeTime(guess.guess_time)}
       </td>
       <td className='px-4 py-3 text-center whitespace-nowrap text-gray-600 dark:text-gray-300'>

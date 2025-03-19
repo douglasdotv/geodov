@@ -9,6 +9,7 @@ import {
   getTimeToGuess,
   formatMovementRestrictions,
   formatRelativeTime,
+  formatFullDateTime,
 } from '@/lib/utils';
 import { GOOGLE_STREET_VIEW_BASE_URL } from '@/lib/constants';
 import { Guess } from '@/types/guess';
@@ -112,7 +113,12 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
               <span className='text-sm text-gray-600 dark:text-gray-400'>
                 When
               </span>
-              <div className='mt-1'>{formatRelativeTime(guess.guess_time)}</div>
+              <div
+                className='mt-1'
+                title={formatFullDateTime(guess.guess_time)}
+              >
+                {formatRelativeTime(guess.guess_time)}
+              </div>
             </div>
             <div>
               <span className='text-sm text-gray-600 dark:text-gray-400'>
