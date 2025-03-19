@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     'geography',
     'statistics',
     'location tracking',
+    'douglasdotv',
   ],
   authors: [{ name: 'Douglas Vieira' }],
   icons: {
