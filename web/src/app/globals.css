@@ -38,7 +38,6 @@ body {
   background-blend-mode: overlay;
   min-height: 100vh;
   backdrop-filter: blur(5px);
-  transition: color 0.7s ease;
 }
 
 @layer components {
@@ -52,11 +51,13 @@ body {
   .card,
   div[class*='bg-white'],
   div[class*='bg-gray-'] {
-    @apply rounded-xl transition-all duration-300;
+    @apply rounded-xl;
     background: var(--background);
     box-shadow:
       8px 8px 16px var(--neu-shadow-light),
       -8px -8px 16px var(--neu-highlight-light);
+    will-change: transform, background-color;
+    transition: background-color 100ms ease-out;
   }
 
   .dark .bg-white,
@@ -78,7 +79,8 @@ body {
   button:not(header button),
   select,
   a[role='button'] {
-    transition: all 0.3s ease;
+    will-change: transform;
+    transition: transform 100ms ease-out;
   }
 
   button:not(header button):hover,
@@ -100,7 +102,7 @@ body {
   .dark a[role='button']:active {
     box-shadow:
       inset 6px 6px 12px var(--neu-shadow-dark),
-      inset -6px -6px 12px var(--neu-highlight-dark);
+      -6px -6px 12px var(--neu-highlight-dark);
   }
 
   table {
@@ -109,11 +111,13 @@ body {
 
   main div[class*='rounded-xl'],
   main div[class*='rounded-lg'] {
-    @apply transition-all duration-300;
+    @apply rounded-xl;
     background: var(--background);
     box-shadow:
       8px 8px 16px var(--neu-shadow-light),
       -8px -8px 16px var(--neu-highlight-light);
+    will-change: background-color;
+    transition: background-color 100ms ease-out;
   }
 
   .dark main div[class*='rounded-xl'],
