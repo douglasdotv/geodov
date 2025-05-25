@@ -80,7 +80,7 @@ export function Header() {
                 <span
                   className={`${spaceGrotesk.className} bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-300 dark:to-purple-300 bg-clip-text text-transparent font-bold tracking-tighter`}
                 >
-                  GEOSTATS
+                  GuessrStats
                 </span>
                 {isPendingGeoStats && <Spinner />}
               </button>
