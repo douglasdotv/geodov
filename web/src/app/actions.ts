@@ -1,9 +1,27 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { supabase } from '@/lib/supabaseClient';
 import { CountryStats } from '@/types/stats';
 import { GuessLocation } from '@/types/guess';
 import { isRawCountryStats } from '@/lib/validation';
+
+export async function deleteGuess(formData: FormData) {
+  const guessIdValue = formData.get('guessId');
+  const guessId = typeof guessIdValue === 'string' ? guessIdValue : null;
+
+  if (!guessId) {
+    throw new Error('Missing guess ID for deletion.');
+  }
+
+  const { error } = await supabase.from('guesses').delete().eq('id', guessId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath('/admin/delete');
+}
 
 export async function getAdditionalGuesses(
   gameId: string,
