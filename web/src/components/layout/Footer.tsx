@@ -4,6 +4,7 @@ import { FiGithub } from 'react-icons/fi';
 export function Footer() {
   const playerName = process.env.G_USER ?? 'Mysterious User';
   const profileLink = process.env.G_PROFILE ?? 'https://www.geoguessr.com/';
+  const githubRepositoryUrl = process.env.GITHUB_REPOSITORY_URL ?? 'https://github.com/douglasdotv';
 
   return (
     <footer className='mt-auto py-6 border-t border-gray-300 dark:border-gray-800'>
@@ -23,7 +24,7 @@ export function Footer() {
         </span>
 
         <Link
-          href='https://github.com/douglasdotv/geostats'
+          href={githubRepositoryUrl}
           target='_blank'
           rel='noopener noreferrer'
           className='flex items-center gap-1 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 transition-colors'
