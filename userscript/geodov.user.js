@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         GeoStats
-// @namespace    https://github.com/douglasdotv/geostats
+// @name         GeoDov
+// @namespace    https://github.com/douglasdotv/geodov
 // @version      0.1
 // @description  Track GeoGuessr guesses across different game modes
 // @author       Douglas Vieira
@@ -25,7 +25,7 @@
     SUPABASE_URL: 'SUPABASE_URL',
     SUPABASE_KEY: 'SUPABASE_KEY',
     GEOGUESSR_PLAYER_ID: 'GEOGUESSR_PLAYER_ID',
-    USER_AGENT: 'GeoStats-Userscript/0.1',
+    USER_AGENT: 'GeoDov-Userscript/0.1',
   };
 
   async function fetchLocation(lat, lng) {
@@ -100,11 +100,11 @@
 
       if (response.status !== 201) {
         console.error(
-          `[GeoStats] Failed to save to Supabase: ${response.status}`
+          `[GeoDov] Failed to save to Supabase: ${response.status}`
         );
       }
     } catch (error) {
-      console.error(`[GeoStats] Failed to save to Supabase: ${error.message}`);
+      console.error(`[GeoDov] Failed to save to Supabase: ${error.message}`);
     }
   }
 
@@ -336,7 +336,7 @@
           const jsonData = await clonedResponse.json();
           await processApiResponse(url, jsonData);
         } catch (e) {
-          console.error(`[GeoStats] Failed to process response: ${e.message}`);
+          console.error(`[GeoDov] Failed to process response: ${e.message}`);
         }
       }
       return response;

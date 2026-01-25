@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://geostats.info'),
-  title: 'GeoStats',
+  metadataBase: new URL('https://geodov.com'),
+  title: 'GeoDov',
   description: 'A website to visualize GeoGuessr locations and statistics.',
   keywords: [
     'geoguessr',

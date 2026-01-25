@@ -22,7 +22,7 @@ export function Header() {
   const [showAbout, setShowAbout] = useState(false);
   const [showCountryStats, setShowCountryStats] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPendingGeoStats, startTransitionGeoStats] = useTransition();
+  const [isPendingGeoDov, startTransitionGeoDov] = useTransition();
   const [isPendingVisitedPlaces, startTransitionVisitedPlaces] =
     useTransition();
   const [isPendingAdmin, startTransitionAdmin] = useTransition();
@@ -76,17 +76,17 @@ export function Header() {
           <div className='flex justify-between items-center h-16'>
             <div className='flex items-center gap-1'>
               <button
-                onClick={() => handleNavigation('/', startTransitionGeoStats)}
+                onClick={() => handleNavigation('/', startTransitionGeoDov)}
                 className={`text-xl font-semibold ${spaceGrotesk.className} cursor-pointer flex items-center gap-2`}
                 aria-label='Navigate to home page'
-                disabled={isPendingGeoStats}
+                disabled={isPendingGeoDov}
               >
                 <span
                   className={`${spaceGrotesk.className} bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-300 dark:to-purple-300 bg-clip-text text-transparent font-bold tracking-tighter`}
                 >
-                  GEOSTATS
+                  GeoDov
                 </span>
-                {isPendingGeoStats && <Spinner />}
+                {isPendingGeoDov && <Spinner />}
               </button>
               <ThemeToggle />
             </div>

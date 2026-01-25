@@ -10,9 +10,6 @@ export function Footer() {
     <footer className='mt-auto py-6 border-t border-gray-300 dark:border-gray-800'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
         <span className='text-sm'>
-          <span className='bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 dark:from-blue-400 dark:via-indigo-300 dark:to-purple-400 bg-clip-text text-transparent'>
-            GeoStats for
-          </span>{' '}
           <Link
             href={profileLink}
             target='_blank'

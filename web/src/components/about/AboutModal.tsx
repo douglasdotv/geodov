@@ -47,7 +47,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
             id='modal-title'
             className='text-2xl font-bold text-gray-900 dark:text-white'
           >
-            About GeoStats
+            About GeoDov
           </h2>
           <button
             onClick={onClose}
@@ -73,7 +73,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
         <div className='space-y-6 text-gray-600 dark:text-gray-300'>
           <section>
             <p className='leading-relaxed'>
-              GeoStats tracks the most recent places I visited in{' '}
+              GeoDov tracks the most recent places I visited in{' '}
               <a
                 href='https://www.geoguessr.com'
                 target='_blank'
