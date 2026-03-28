@@ -2,11 +2,17 @@
 
 import { revalidatePath } from 'next/cache';
 import { supabase } from '@/lib/supabaseClient';
+import { getSession } from '@/lib/session';
 import { CountryStats } from '@/types/stats';
 import { GuessLocation } from '@/types/guess';
 import { isRawCountryStats } from '@/lib/validation';
 
 export async function deleteGuess(formData: FormData) {
+  const session = await getSession();
+  if (!session.isLoggedIn) {
+    throw new Error('Unauthorized.');
+  }
+
   const guessIdValue = formData.get('guessId');
   const guessId = typeof guessIdValue === 'string' ? guessIdValue : null;
 

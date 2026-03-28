@@ -45,6 +45,6 @@ export async function login(
 
 export async function logout() {
   const session = await getSession();
-  session.destroy();
+  await session.destroy();
   redirect('/login');
 }
