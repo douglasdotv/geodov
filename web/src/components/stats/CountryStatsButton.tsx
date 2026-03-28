@@ -1,5 +1,3 @@
-'use client';
-
 interface CountryStatsButtonProps {
   readonly onClick: () => void;
 }

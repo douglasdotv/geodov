@@ -2,10 +2,9 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import lookup from 'country-code-lookup';
 import { CountryFlag } from '@/components/shared/CountryFlag';
 import { CountryStats } from '@/types/stats';
-import { formatDistance } from '@/lib/utils';
+import { formatDistance, getCountryCode } from '@/lib/utils';
 import { Spinner } from '@/components/shared/Spinner';
 
 interface CountryStatsModalProps {
@@ -24,15 +23,6 @@ export function CountryStatsModal({
   const [pendingCountry, setPendingCountry] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  const getCountryCode = (countryName: string) => {
-    try {
-      const country = lookup.byCountry(countryName);
-      return country?.iso2 ?? null;
-    } catch {
-      return null;
-    }
-  };
 
   const sortedStats = [...stats].sort((a, b) => {
     const percentageDiff = b.correctPercentage - a.correctPercentage;

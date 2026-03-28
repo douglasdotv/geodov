@@ -1,5 +1,3 @@
-'use client';
-
 import { CountryFilter } from '@/components/controls/filters/CountryFilter';
 import { MovementRestrictionFilter } from '@/components/controls/filters/MovementRestrictionFilter';
 import { GameTypeFilter } from '@/components/controls/filters/GameTypeFilter';
