@@ -3,7 +3,12 @@
 import { revalidatePath } from 'next/cache';
 import { supabase } from '@/lib/supabaseClient';
 import { getSession } from '@/lib/session';
-import { CountryStats } from '@/types/stats';
+import {
+  CountryStats,
+  OverviewStats,
+  GameTypeStats,
+  MovementStats,
+} from '@/types/stats';
 import { GuessLocation } from '@/types/guess';
 import { isRawCountryStats } from '@/lib/validation';
 
@@ -42,8 +47,10 @@ export async function getAdditionalGuesses(
   return data;
 }
 
-export async function getCountryStats(): Promise<CountryStats[]> {
-  const { data, error } = await supabase.rpc('get_country_stats');
+export async function getCountryStats(fromDate?: string): Promise<CountryStats[]> {
+  const { data, error } = await supabase.rpc('get_country_stats', {
+    from_date: fromDate ?? null,
+  });
 
   if (error) throw error;
   if (!data || !isRawCountryStats(data)) {
@@ -56,6 +63,65 @@ export async function getCountryStats(): Promise<CountryStats[]> {
     correctGuesses: Number(stat.correct_guesses),
     correctPercentage: Number(stat.correct_percentage),
     averageDistance: Number(stat.average_distance),
+  }));
+}
+
+export async function getOverviewStats(fromDate?: string): Promise<OverviewStats> {
+  const { data, error } = await supabase.rpc('get_overview_stats', {
+    from_date: fromDate ?? null,
+  });
+
+  if (error) throw error;
+  if (!data || !data[0]) throw new Error('No overview stats returned');
+
+  const row = data[0];
+  return {
+    totalRounds: Number(row.total_rounds),
+    totalGames: Number(row.total_games),
+    totalCountries: Number(row.total_countries),
+    correctCountryPercentage: Number(row.correct_country_percentage),
+    averageDistance: Number(row.average_distance),
+    averageTimeToGuess: Number(row.average_time_to_guess),
+    bestGuess: {
+      id: row.best_guess_id,
+      distance: Number(row.best_guess_distance),
+      location: row.best_guess_location,
+    },
+    worstGuess: {
+      id: row.worst_guess_id,
+      distance: Number(row.worst_guess_distance),
+      location: row.worst_guess_location,
+    },
+  };
+}
+
+export async function getGameTypeStats(fromDate?: string): Promise<GameTypeStats[]> {
+  const { data, error } = await supabase.rpc('get_game_type_stats', {
+    from_date: fromDate ?? null,
+  });
+
+  if (error) throw error;
+  return (data ?? []).map((row: Record<string, unknown>) => ({
+    gameType: String(row.game_type),
+    totalRounds: Number(row.total_rounds),
+    correctCountryPercentage: Number(row.correct_country_percentage),
+    averageDistance: Number(row.average_distance),
+    averageTimeToGuess: Number(row.average_time_to_guess),
+  }));
+}
+
+export async function getMovementStats(fromDate?: string): Promise<MovementStats[]> {
+  const { data, error } = await supabase.rpc('get_movement_stats', {
+    from_date: fromDate ?? null,
+  });
+
+  if (error) throw error;
+  return (data ?? []).map((row: Record<string, unknown>) => ({
+    movementType: String(row.movement_type),
+    totalRounds: Number(row.total_rounds),
+    correctCountryPercentage: Number(row.correct_country_percentage),
+    averageDistance: Number(row.average_distance),
+    averageTimeToGuess: Number(row.average_time_to_guess),
   }));
 }
 

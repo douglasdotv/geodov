@@ -202,7 +202,7 @@ RETURNS SETOF guesses AS $$
 $$ LANGUAGE SQL;
 
 -- Get country stats
-CREATE OR REPLACE FUNCTION get_country_stats()
+CREATE OR REPLACE FUNCTION get_country_stats(from_date TIMESTAMPTZ DEFAULT NULL)
 RETURNS TABLE (
   country TEXT,
   total_guesses BIGINT,
@@ -211,13 +211,14 @@ RETURNS TABLE (
   average_distance DECIMAL
 ) AS $$
   WITH country_metrics AS (
-    SELECT 
+    SELECT
       actual_country,
       COUNT(*) as total,
       COUNT(CASE WHEN actual_country = guess_country THEN 1 END) as correct,
       AVG(distance) as avg_distance
     FROM guesses
     WHERE actual_country IS NOT NULL
+    AND (from_date IS NULL OR created_at >= from_date)
     GROUP BY actual_country
   )
   SELECT
@@ -228,6 +229,120 @@ RETURNS TABLE (
     ROUND(avg_distance::DECIMAL, 2) as average_distance
   FROM country_metrics
   ORDER BY correct_percentage DESC;
+$$ LANGUAGE SQL;
+
+-- Get overview stats (best/worst guess, avg time, total games)
+CREATE OR REPLACE FUNCTION get_overview_stats(from_date TIMESTAMPTZ DEFAULT NULL)
+RETURNS TABLE (
+  total_rounds BIGINT,
+  total_games BIGINT,
+  total_countries BIGINT,
+  correct_country_percentage DECIMAL,
+  average_distance DECIMAL,
+  average_time_to_guess DECIMAL,
+  best_guess_id UUID,
+  best_guess_distance DOUBLE PRECISION,
+  best_guess_location TEXT,
+  worst_guess_id UUID,
+  worst_guess_distance DOUBLE PRECISION,
+  worst_guess_location TEXT
+) AS $$
+  WITH stats AS (
+    SELECT
+      COUNT(*) as total_rounds,
+      COUNT(DISTINCT game_id) as total_games,
+      COUNT(DISTINCT actual_country) as total_countries,
+      ROUND(
+        (COUNT(CASE WHEN actual_country = guess_country THEN 1 END)::DECIMAL / COUNT(*)::DECIMAL) * 100, 1
+      ) as correct_country_percentage,
+      ROUND(AVG(distance)::DECIMAL, 2) as average_distance,
+      ROUND(AVG(EXTRACT(EPOCH FROM (guess_time - round_start_time)))::DECIMAL, 1) as average_time_to_guess
+    FROM guesses
+    WHERE (from_date IS NULL OR created_at >= from_date)
+  ),
+  best AS (
+    SELECT id, distance, actual_display_name
+    FROM guesses
+    WHERE distance IS NOT NULL
+    AND (from_date IS NULL OR created_at >= from_date)
+    ORDER BY distance ASC
+    LIMIT 1
+  ),
+  worst AS (
+    SELECT id, distance, actual_display_name
+    FROM guesses
+    WHERE distance IS NOT NULL
+    AND (from_date IS NULL OR created_at >= from_date)
+    ORDER BY distance DESC
+    LIMIT 1
+  )
+  SELECT
+    s.total_rounds,
+    s.total_games,
+    s.total_countries,
+    s.correct_country_percentage,
+    s.average_distance,
+    s.average_time_to_guess,
+    b.id as best_guess_id,
+    b.distance as best_guess_distance,
+    b.actual_display_name as best_guess_location,
+    w.id as worst_guess_id,
+    w.distance as worst_guess_distance,
+    w.actual_display_name as worst_guess_location
+  FROM stats s, best b, worst w;
+$$ LANGUAGE SQL;
+
+-- Get stats breakdown by game type
+CREATE OR REPLACE FUNCTION get_game_type_stats(from_date TIMESTAMPTZ DEFAULT NULL)
+RETURNS TABLE (
+  game_type TEXT,
+  total_rounds BIGINT,
+  correct_country_percentage DECIMAL,
+  average_distance DECIMAL,
+  average_time_to_guess DECIMAL
+) AS $$
+  SELECT
+    game_type,
+    COUNT(*) as total_rounds,
+    ROUND(
+      (COUNT(CASE WHEN actual_country = guess_country THEN 1 END)::DECIMAL / COUNT(*)::DECIMAL) * 100, 1
+    ) as correct_country_percentage,
+    ROUND(AVG(distance)::DECIMAL, 2) as average_distance,
+    ROUND(AVG(EXTRACT(EPOCH FROM (guess_time - round_start_time)))::DECIMAL, 1) as average_time_to_guess
+  FROM guesses
+  WHERE (from_date IS NULL OR created_at >= from_date)
+  GROUP BY game_type
+  ORDER BY total_rounds DESC;
+$$ LANGUAGE SQL;
+
+-- Get stats breakdown by movement restriction
+CREATE OR REPLACE FUNCTION get_movement_stats(from_date TIMESTAMPTZ DEFAULT NULL)
+RETURNS TABLE (
+  movement_type TEXT,
+  total_rounds BIGINT,
+  correct_country_percentage DECIMAL,
+  average_distance DECIMAL,
+  average_time_to_guess DECIMAL
+) AS $$
+  SELECT
+    CASE
+      WHEN (movement_restrictions->>'forbidMoving')::boolean
+        AND (movement_restrictions->>'forbidZooming')::boolean
+        AND (movement_restrictions->>'forbidRotating')::boolean THEN 'NMPZ'
+      WHEN (movement_restrictions->>'forbidMoving')::boolean THEN 'No Move'
+      ELSE 'Moving'
+    END as movement_type,
+    COUNT(*) as total_rounds,
+    ROUND(
+      (COUNT(CASE WHEN actual_country = guess_country THEN 1 END)::DECIMAL / COUNT(*)::DECIMAL) * 100, 1
+    ) as correct_country_percentage,
+    ROUND(AVG(distance)::DECIMAL, 2) as average_distance,
+    ROUND(AVG(EXTRACT(EPOCH FROM (guess_time - round_start_time)))::DECIMAL, 1) as average_time_to_guess
+  FROM guesses
+  WHERE movement_restrictions IS NOT NULL
+  AND (from_date IS NULL OR created_at >= from_date)
+  GROUP BY movement_type
+  ORDER BY total_rounds DESC;
 $$ LANGUAGE SQL;
 
 -- Retrieve actual locations within specified geographic bounds

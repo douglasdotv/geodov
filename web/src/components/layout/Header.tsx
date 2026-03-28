@@ -1,15 +1,13 @@
 'use client';
 
-import { useState, useEffect, useTransition, Suspense } from 'react';
+import { useState, useTransition, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Space_Grotesk } from 'next/font/google';
 import { FiMenu, FiX, FiLock } from 'react-icons/fi';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 import { AboutModal } from '@/components/about/AboutModal';
-import { CountryStatsModal } from '@/components/stats/CountryStatsModal';
-import { getCountryStats } from '@/app/actions';
-import { CountryStats } from '@/types/stats';
+import { StatsModal } from '@/components/stats/StatsModal';
 import { Spinner } from '@/components/shared/Spinner';
 
 const spaceGrotesk = Space_Grotesk({
@@ -18,9 +16,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export function Header() {
-  const [countryStats, setCountryStats] = useState<CountryStats[]>([]);
   const [showAbout, setShowAbout] = useState(false);
-  const [showCountryStats, setShowCountryStats] = useState(false);
+  const [showStats, setShowStats] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPendingGeoDov, startTransitionGeoDov] = useTransition();
   const [isPendingVisitedPlaces, startTransitionVisitedPlaces] =
@@ -43,26 +40,14 @@ export function Header() {
     setIsMenuOpen(false);
   };
 
-  const handleCountryStatsClick = () => {
-    setShowCountryStats(true);
+  const handleStatsClick = () => {
+    setShowStats(true);
     setIsMenuOpen(false);
   };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  useEffect(() => {
-    const fetchCountryStats = async () => {
-      try {
-        const stats = await getCountryStats();
-        setCountryStats(stats);
-      } catch (error) {
-        console.error('Failed to fetch country stats:', error);
-      }
-    };
-    fetchCountryStats();
-  }, []);
 
   const navLinkClassName =
     'px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:bg-surface-hover dark:text-gray-300 transition-colors flex items-center gap-1';
@@ -103,10 +88,10 @@ export function Header() {
                 {isPendingVisitedPlaces && <Spinner />}
               </button>
               <button
-                onClick={handleCountryStatsClick}
+                onClick={handleStatsClick}
                 className={navLinkClassName}
               >
-                Country Stats
+                Stats
               </button>
               <button onClick={handleAboutClick} className={navLinkClassName}>
                 About
@@ -147,10 +132,10 @@ export function Header() {
                 {isPendingVisitedPlaces && <Spinner />}
               </button>
               <button
-                onClick={handleCountryStatsClick}
+                onClick={handleStatsClick}
                 className={mobileNavLinkClassName}
               >
-                Country Stats
+                Stats
               </button>
               <button
                 onClick={handleAboutClick}
@@ -177,7 +162,7 @@ export function Header() {
 
       <AboutModal isOpen={showAbout} onClose={() => setShowAbout(false)} />
 
-      {showCountryStats && (
+      {showStats && (
         <Suspense
           fallback={
             <div className='flex items-center justify-center h-screen'>
@@ -185,10 +170,9 @@ export function Header() {
             </div>
           }
         >
-          <CountryStatsModal
-            isOpen={showCountryStats}
-            onClose={() => setShowCountryStats(false)}
-            stats={countryStats}
+          <StatsModal
+            isOpen={showStats}
+            onClose={() => setShowStats(false)}
           />
         </Suspense>
       )}
