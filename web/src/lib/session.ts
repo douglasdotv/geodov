@@ -6,7 +6,7 @@ export interface AdminSessionData {
 }
 
 export const sessionOptions = {
-  cookieName: 'geostats_admin_session',
+  cookieName: 'geodov_admin_session',
   password: process.env.SESSION_SECRET as string,
   cookieOptions: {
     secure: process.env.NODE_ENV === 'production',

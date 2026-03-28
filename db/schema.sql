@@ -38,8 +38,8 @@ CREATE UNIQUE INDEX idx_unique_br_guess
 ON guesses (game_id, round_number, created_at)
 WHERE game_type = 'br';
 
-CREATE INDEX idx_guesses_game_type_timestamp
-ON guesses (game_type, "timestamp");
+CREATE INDEX idx_guesses_game_type_created_at
+ON guesses (game_type, created_at);
 
 CREATE INDEX idx_guesses_created_at
 ON guesses (created_at);
