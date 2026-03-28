@@ -53,12 +53,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col transition-colors duration-200 ease-in-out`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen flex flex-col transition-colors duration-200 ease-in-out`}
       >
         <ThemeProvider>
           <Suspense
             fallback={
-              <div className='h-16 border-b border-gray-200 dark:border-gray-800'></div>
+              <div className='h-16 border-b border-divider'></div>
             }
           >
             <Header />

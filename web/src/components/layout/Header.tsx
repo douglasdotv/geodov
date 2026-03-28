@@ -65,13 +65,13 @@ export function Header() {
   }, []);
 
   const navLinkClassName =
-    'px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors flex items-center gap-1';
+    'px-3 py-1.5 rounded-lg font-medium text-gray-600 hover:bg-surface-hover dark:text-gray-300 transition-colors flex items-center gap-1';
   const mobileNavLinkClassName =
-    'w-full px-3 py-2 text-left rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-2';
+    'w-full px-3 py-2 text-left rounded-lg hover:bg-surface-hover transition-colors flex items-center gap-2';
 
   return (
     <>
-      <header className='border-b border-gray-200 dark:border-gray-800 backdrop-blur-sm bg-white/95 dark:bg-gray-950/90'>
+      <header className='border-b border-divider glass-subtle'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-16'>
             <div className='flex items-center gap-1'>
@@ -127,7 +127,7 @@ export function Header() {
 
             <button
               onClick={toggleMenu}
-              className='md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+              className='md:hidden p-2 rounded-lg hover:bg-surface-hover transition-colors'
               aria-label='Toggle menu'
             >
               {isMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}

@@ -27,7 +27,7 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -35,11 +35,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
       if (isValidTheme(storedTheme)) {
         setTheme(storedTheme);
-      } else {
-        const prefersDark = window.matchMedia(
-          '(prefers-color-scheme: dark)',
-        ).matches;
-        setTheme(prefersDark ? 'dark' : 'light');
       }
     }
   }, []);

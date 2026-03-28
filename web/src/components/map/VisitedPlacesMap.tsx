@@ -131,20 +131,20 @@ export function VisitedPlacesMap({
         .setLngLat([location.lng, location.lat])
         .setPopup(
           new maplibregl.Popup({ offset: 15 }).setHTML(
-            `<div class="bg-gray-100 rounded-lg p-3 text-sm text-gray-800">
-              <p class="font-medium text-blue-900 leading-tight">${
+            `<div style="background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border-radius:0.75rem;padding:0.75rem;font-size:0.875rem;color:#1e293b;border:1px solid rgba(255,255,255,0.3)">
+              <p style="font-weight:500;color:#1e3a5f;line-height:1.25">${
                 location.location ?? 'Unknown location'
               }</p>
-              <div class="flex flex-col gap-2 mt-2">
+              <div style="display:flex;flex-direction:column;gap:0.5rem;margin-top:0.5rem">
                 <a href="${GOOGLE_STREET_VIEW_BASE_URL}${location.lat},${
                   location.lng
                 }"
                    target="_blank"
-                   class="text-center text-white bg-blue-900 hover:bg-blue-800 transition-colors duration-200 rounded-md px-3 py-1">
+                   style="text-align:center;color:white;background:#1e3a8a;border-radius:0.375rem;padding:0.25rem 0.75rem;text-decoration:none">
                   View in Street View
                 </a>
                 <a href="/guess/${location.id}"
-                   class="text-center text-white bg-blue-900 hover:bg-blue-800 transition-colors duration-200 rounded-md px-3 py-1">
+                   style="text-align:center;color:white;background:#1e3a8a;border-radius:0.375rem;padding:0.25rem 0.75rem;text-decoration:none">
                   Show Guess Details
                 </a>
               </div>

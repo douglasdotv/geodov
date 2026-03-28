@@ -45,7 +45,7 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
         <ViewGuessDetailsButton guessId={guess.id} />
       </div>
 
-      <div className='bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-800'>
+      <div className='glass p-6'>
         <div className='grid md:grid-cols-2 gap-6'>
           <div>
             <h2 className='text-lg font-medium mb-4'>Guess</h2>
@@ -79,7 +79,7 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
           </div>
         </div>
 
-        <div className='border-t border-gray-200 dark:border-gray-800 mt-6 pt-6'>
+        <div className='border-t border-glass mt-6 pt-6'>
           <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
             <div>
               <span className='text-sm text-gray-600 dark:text-gray-400'>
@@ -135,7 +135,7 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
       </div>
 
       {hasLocation && (
-        <div className='rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800'>
+        <div className='glass overflow-hidden'>
           <LocationMap
             guessLat={guess.guess_lat}
             guessLng={guess.guess_lng}

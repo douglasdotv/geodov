@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { FiX } from 'react-icons/fi';
 
 interface AboutModalProps {
   readonly isOpen: boolean;
@@ -41,7 +42,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
       className='fixed inset-0 bg-transparent p-4 animate-[fadeIn_0.2s_ease-out] backdrop:bg-black/30 backdrop:backdrop-blur-sm'
       onClose={onClose}
     >
-      <div className='bg-white dark:bg-gray-900 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl animate-[scaleIn_0.2s_ease-out] p-8'>
+      <div className='glass max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-xl animate-[scaleIn_0.2s_ease-out] p-8'>
         <div className='flex justify-between items-start mb-6'>
           <h2
             id='modal-title'
@@ -51,22 +52,10 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
           </h2>
           <button
             onClick={onClose}
-            className='rounded-full p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+            className='rounded-full p-2 text-gray-600 dark:text-gray-400 hover:bg-surface-active transition-colors'
             aria-label='Close modal'
           >
-            <svg
-              className='w-5 h-5'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M6 18L18 6M6 6l12 12'
-              />
-            </svg>
+            <FiX className='w-5 h-5' />
           </button>
         </div>
 

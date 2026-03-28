@@ -81,7 +81,7 @@ export default async function AdminDeletePage({ searchParams }: PageProps) {
           <form action={logout}>
             <button
               type='submit'
-              className='inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+              className='inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-surface-hover transition-colors'
             >
               <FiLogOut />
               <span>Logout</span>
@@ -91,10 +91,10 @@ export default async function AdminDeletePage({ searchParams }: PageProps) {
 
         <div className='overflow-x-auto rounded-xl'>
           <div className='inline-block min-w-full align-middle'>
-            <div className='bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-800 rounded-xl'>
-              <table className='min-w-full divide-y divide-gray-100 dark:divide-gray-800'>
+            <div className='glass overflow-hidden'>
+              <table className='min-w-full divide-y divide-divider'>
                 <thead>
-                  <tr className='border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50'>
+                  <tr className='border-b border-divider glass-subtle'>
                     <th
                       scope='col'
                       className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-left'
@@ -115,11 +115,11 @@ export default async function AdminDeletePage({ searchParams }: PageProps) {
                     </th>
                   </tr>
                 </thead>
-                <tbody className='divide-y divide-gray-100 dark:divide-gray-800'>
+                <tbody className='divide-y divide-divider'>
                   {guesses?.map((guess) => (
                     <tr
                       key={guess.id}
-                      className='hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200'
+                      className='hover:bg-surface-hover transition-colors duration-200'
                     >
                       <td className='px-4 py-3'>
                         <p

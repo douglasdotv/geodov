@@ -69,7 +69,15 @@ export function GuessRow({
     return isExpanded ? <FiMinus size={12} /> : <FiPlus size={12} />;
   }
 
-  const gameTypeContent = `${guess.game_type}/${formatMovementRestrictions(guess.movement_restrictions)}`;
+  const gameTypeLabel = guess.game_type;
+  const movementLabel = formatMovementRestrictions(guess.movement_restrictions);
+
+  const badgeColors: Record<string, string> = {
+    duels: 'bg-purple-500/20 text-purple-700 dark:text-purple-300',
+    challenge: 'bg-blue-500/20 text-blue-700 dark:text-blue-300',
+    br: 'bg-amber-500/20 text-amber-700 dark:text-amber-300',
+  };
+  const badgeColor = badgeColors[gameTypeLabel] ?? 'bg-gray-500/20 text-gray-600 dark:text-gray-300';
 
   let brTooltipContent: string;
   if (isLoading) {
@@ -81,8 +89,8 @@ export function GuessRow({
   }
 
   const rowClass = isSubRow
-    ? 'bg-red-100 dark:bg-red-800 hover:bg-red-200 dark:hover:bg-red-700'
-    : 'hover:bg-gray-50 dark:hover:bg-gray-800';
+    ? 'bg-red-500/10 hover:bg-red-500/20'
+    : 'hover:bg-surface-hover';
 
   const hasActualLocation = guess.actual_lat != null && guess.actual_lng != null;
   const hasGuessLocation = guess.guess_lat != null && guess.guess_lng != null;
@@ -94,7 +102,7 @@ export function GuessRow({
         {isExpandable && (
           <button
             onClick={onToggle}
-            className='absolute left-1 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-4 h-4 text-[10px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors'
+            className='absolute left-1 top-1/2 transform -translate-y-1/2 flex items-center justify-center w-4 h-4 text-[10px] bg-surface-active border border-glass rounded hover:bg-surface-active transition-colors'
             disabled={isLoading}
             data-tooltip-id='guess-row-tooltip'
             data-tooltip-content={brTooltipContent}
@@ -102,9 +110,12 @@ export function GuessRow({
             {getToggleIcon()}
           </button>
         )}
-        <div className='flex justify-center'>
-          <span className='truncate text-gray-600 dark:text-gray-300'>
-            {gameTypeContent}
+        <div className='flex flex-col items-center gap-1'>
+          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${badgeColor}`}>
+            {gameTypeLabel}
+          </span>
+          <span className='text-[10px] text-gray-500 dark:text-gray-400'>
+            {movementLabel}
           </span>
         </div>
       </td>

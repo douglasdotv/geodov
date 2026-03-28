@@ -38,7 +38,7 @@ export function ViewGuessDetailsButton({
         {showCopiedMessage ? <FiCheck /> : <FiShare2 />}
       </button>
       {showCopiedMessage && (
-        <div className='absolute right-0 top-8 w-24 text-center text-sm text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-900 rounded-md shadow-md py-1 px-2 border border-gray-200 dark:border-gray-800 animate-[fadeIn_0.2s_ease-out]'>
+        <div className='absolute right-0 top-8 w-24 text-center text-sm text-blue-600 dark:text-blue-400 glass shadow-md py-1 px-2 animate-[fadeIn_0.2s_ease-out]'>
           Link copied!
         </div>
       )}

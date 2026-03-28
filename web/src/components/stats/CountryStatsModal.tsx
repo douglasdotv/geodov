@@ -78,7 +78,7 @@ export function CountryStatsModal({
       <button
         key={stat.country}
         onClick={() => navigateToCountry(stat.country)}
-        className='w-full text-left flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors'
+        className='w-full text-left flex items-center justify-between p-2 bg-surface-hover rounded hover:bg-surface-active transition-colors'
         disabled={isPending}
       >
         <div className='flex items-center gap-2'>
@@ -102,8 +102,8 @@ export function CountryStatsModal({
 
   return (
     <div className='fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-[fadeIn_0.2s_ease-out]'>
-      <div className='bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col animate-[scaleIn_0.2s_ease-out]'>
-        <div className='flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700'>
+      <div className='glass shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col animate-[scaleIn_0.2s_ease-out]'>
+        <div className='flex justify-between items-center p-4 border-b border-divider'>
           <h2 className='text-xl font-semibold'>Country Statistics</h2>
           <button
             onClick={onClose}
@@ -115,7 +115,7 @@ export function CountryStatsModal({
         </div>
 
         <div className='flex-1 overflow-y-auto p-6'>
-          <div className='mb-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg'>
+          <div className='mb-8 p-4 glass-subtle rounded-lg'>
             <h3 className='text-lg font-semibold mb-2'>Overall Performance</h3>
             <p>Total Guesses: {overallStats.totalGuesses}</p>
             <p>
@@ -146,7 +146,7 @@ export function CountryStatsModal({
           <div className='mt-8 flex justify-center'>
             <button
               onClick={() => setShowAllCountries(!showAllCountries)}
-              className='px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center gap-2'
+              className='px-4 py-2 bg-surface-hover rounded-md hover:bg-surface-active transition-colors flex items-center gap-2'
               disabled={isPending}
             >
               {showAllCountries ? 'Hide All Countries' : 'Show All Countries'}

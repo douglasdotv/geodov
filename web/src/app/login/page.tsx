@@ -26,7 +26,7 @@ export default function LoginPage() {
 
   return (
     <main className='flex items-center justify-center min-h-screen'>
-      <div className='w-full max-w-sm mx-auto p-8 space-y-6 card'>
+      <div className='w-full max-w-sm mx-auto p-8 space-y-6 glass'>
         <div className='text-center'>
           <h1 className='text-2xl font-bold'>Admin Access</h1>
         </div>
@@ -43,7 +43,7 @@ export default function LoginPage() {
               name='username'
               type='text'
               required
-              className='w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
+              className='w-full px-3 py-2 rounded-md border border-glass bg-transparent focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
             />
           </div>
           <div>
@@ -58,7 +58,7 @@ export default function LoginPage() {
               name='password'
               type='password'
               required
-              className='w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
+              className='w-full px-3 py-2 rounded-md border border-glass bg-transparent focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
             />
           </div>
           {state?.error && (

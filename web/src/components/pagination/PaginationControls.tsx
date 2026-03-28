@@ -68,10 +68,10 @@ export function PaginationControls({
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`px-3 py-1 mx-1 rounded-md ${
+            className={`px-3 py-1 mx-1 rounded-md transition-colors ${
               currentPage === i
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
+                : 'bg-surface-hover hover:bg-surface-active'
             }`}
             aria-current={currentPage === i ? 'page' : undefined}
           >
@@ -98,7 +98,7 @@ export function PaginationControls({
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 ${
+        className={`px-3 py-1 rounded-md bg-surface-hover hover:bg-surface-active transition-colors ${
           currentPage === 1 ? 'opacity-50' : ''
         }`}
         aria-disabled={currentPage === 1}
@@ -109,7 +109,7 @@ export function PaginationControls({
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-3 py-1 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 ${
+        className={`px-3 py-1 rounded-md bg-surface-hover hover:bg-surface-active transition-colors ${
           currentPage === totalPages ? 'opacity-50' : ''
         }`}
         aria-disabled={currentPage === totalPages}

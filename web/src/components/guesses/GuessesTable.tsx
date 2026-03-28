@@ -73,10 +73,10 @@ export function GuessesTable({
     <div className='mt-4 relative'>
       <div className='overflow-x-auto rounded-xl'>
         <div className='inline-block min-w-full align-middle'>
-          <div className='bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-800 rounded-xl'>
-            <table className='min-w-full divide-y divide-gray-100 dark:divide-gray-800'>
+          <div className='glass overflow-hidden'>
+            <table className='min-w-full divide-y divide-divider'>
               <thead>
-                <tr className='border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50'>
+                <tr className='border-b border-divider glass-subtle'>
                   <th
                     scope='col'
                     className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-center'
@@ -121,7 +121,7 @@ export function GuessesTable({
                   </th>
                 </tr>
               </thead>
-              <tbody className='divide-y divide-gray-100 dark:divide-gray-800'>
+              <tbody className='divide-y divide-divider'>
                 {guesses.map((guess) => {
                   const rowKey = `${guess.game_id}-${guess.round_number}`;
                   const isExpanded = expandedRows.has(rowKey);

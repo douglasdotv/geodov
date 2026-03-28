@@ -35,7 +35,7 @@ export function ResetFiltersButton() {
     <div className='flex items-center gap-2'>
       <button
         onClick={handleReset}
-        className='w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+        className='w-full px-4 py-2 rounded-md border border-glass hover:bg-surface-hover transition-colors'
         aria-label='Reset all filters'
       >
         Reset

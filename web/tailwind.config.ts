@@ -12,6 +12,16 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        'surface-hover': 'var(--surface-hover)',
+        'surface-active': 'var(--surface-active)',
+        divider: 'var(--divider)',
+      },
+      borderColor: {
+        glass: 'var(--glass-border)',
+      },
+      fontFamily: {
+        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
       },
     },
   },

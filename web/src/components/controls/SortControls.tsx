@@ -25,7 +25,7 @@ export function SortControls({ currentSort }: SortControlsProps) {
       <select
         value={currentSort}
         onChange={handleChange}
-        className='w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+        className='w-full px-4 py-2 rounded-md border border-glass bg-transparent hover:bg-surface-hover transition-colors'
         aria-label='Sort guesses'
       >
         <option value='latest'>Latest</option>

@@ -24,14 +24,14 @@ export default function MapPage() {
 
         <h1 className='text-2xl font-semibold'>Places I&apos;ve Been</h1>
 
-        <div className='relative bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800'>
+        <div className='relative glass'>
           {isLoading && (
             <div className='absolute top-4 right-4 z-10'>
               <Spinner />
             </div>
           )}
           {isZoomTooLow && (
-            <div className='absolute top-4 left-1/2 -translate-x-1/2 z-10 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-4 py-2 rounded-lg shadow-sm border border-blue-200 dark:border-blue-800 flex items-center gap-2 animate-[fadeIn_0.2s_ease-out]'>
+            <div className='absolute top-4 left-1/2 -translate-x-1/2 z-10 glass text-blue-700 dark:text-blue-200 px-4 py-2 shadow-sm flex items-center gap-2 animate-[fadeIn_0.2s_ease-out]'>
               <FiZoomIn className='flex-shrink-0' />
               <span>Zoom in to see locations</span>
             </div>

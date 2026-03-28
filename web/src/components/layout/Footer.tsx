@@ -7,7 +7,7 @@ export function Footer() {
   const githubRepositoryUrl = process.env.GITHUB_REPOSITORY_URL ?? 'https://github.com/douglasdotv';
 
   return (
-    <footer className='mt-auto py-6 border-t border-gray-300 dark:border-gray-800'>
+    <footer className='mt-auto py-6 border-t border-divider'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
         <span className='text-sm'>
           <Link

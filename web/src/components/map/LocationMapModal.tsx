@@ -25,8 +25,8 @@ export function LocationMapModal({
 
   return (
     <div className='fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-[fadeIn_0.2s_ease-out]'>
-      <div className='bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden animate-[scaleIn_0.2s_ease-out]'>
-        <div className='flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700'>
+      <div className='glass shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden animate-[scaleIn_0.2s_ease-out]'>
+        <div className='flex justify-between items-center p-4 border-b border-divider'>
           <h2 className='text-xl font-semibold'>Location Comparison</h2>
           <button
             onClick={onClose}
