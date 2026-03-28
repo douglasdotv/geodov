@@ -46,7 +46,7 @@ function buildPopupHTML(location: GuessLocation) {
          onmouseover="this.style.background='${btnHoverBg}'"
          onmouseout="this.style.background='${btnBg}'"
          style="text-align:center;color:${btnText};background:${btnBg};border:1px solid ${border};border-radius:0.5rem;padding:0.375rem 0.75rem;text-decoration:none;font-size:0.8125rem;transition:background 0.15s">
-        View on Street View
+        Open in Street View
       </a>
     </div>
   </div>`;

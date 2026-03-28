@@ -157,7 +157,7 @@ export function GuessRow({
               rel='noopener noreferrer'
               className='text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
               data-tooltip-id='guess-row-tooltip'
-              data-tooltip-content='Open actual location in Google Street View'
+              data-tooltip-content='Open actual location in Street View'
             >
               <FiGlobe />
             </a>
