@@ -36,7 +36,13 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
     <div className='space-y-6'>
       <div className='flex items-center justify-between'>
         <button
-          onClick={() => router.back()}
+          onClick={() => {
+            if (window.history.length > 1) {
+              router.back();
+            } else {
+              router.push('/');
+            }
+          }}
           className='inline-flex items-center gap-2 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
         >
           <FiArrowLeft />
@@ -113,6 +119,14 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
 
             <div>
               <span className='text-sm text-gray-600 dark:text-gray-400'>
+                Time to Guess
+              </span>
+              <div className='mt-1'>
+                {getTimeToGuess(guess.guess_time, guess.round_start_time)}
+              </div>
+            </div>
+            <div>
+              <span className='text-sm text-gray-600 dark:text-gray-400'>
                 When
               </span>
               <div
@@ -120,14 +134,6 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
                 title={formatFullDateTime(guess.guess_time)}
               >
                 {formatRelativeTime(guess.guess_time)}
-              </div>
-            </div>
-            <div>
-              <span className='text-sm text-gray-600 dark:text-gray-400'>
-                Time to Guess
-              </span>
-              <div className='mt-1'>
-                {getTimeToGuess(guess.guess_time, guess.round_start_time)}
               </div>
             </div>
           </div>
