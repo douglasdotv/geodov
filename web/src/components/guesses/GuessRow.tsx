@@ -84,8 +84,8 @@ export function GuessRow({
     ? 'bg-red-100 dark:bg-red-800 hover:bg-red-200 dark:hover:bg-red-700'
     : 'hover:bg-gray-50 dark:hover:bg-gray-800';
 
-  const hasActualLocation = Boolean(guess.actual_lat && guess.actual_lng);
-  const hasGuessLocation = Boolean(guess.guess_lat && guess.guess_lng);
+  const hasActualLocation = guess.actual_lat != null && guess.actual_lng != null;
+  const hasGuessLocation = guess.guess_lat != null && guess.guess_lng != null;
   const canShowMap = hasActualLocation && hasGuessLocation;
 
   return (

@@ -20,9 +20,11 @@ interface SingleGuessViewProps {
 
 export function SingleGuessView({ guess }: SingleGuessViewProps) {
   const router = useRouter();
-  const hasLocation = Boolean(
-    guess.actual_lat && guess.actual_lng && guess.guess_lat && guess.guess_lng,
-  );
+  const hasLocation =
+    guess.actual_lat != null &&
+    guess.actual_lng != null &&
+    guess.guess_lat != null &&
+    guess.guess_lng != null;
 
   const gameTypeContent = `${guess.game_type}/${formatMovementRestrictions(guess.movement_restrictions)}`;
   const mapContent =
@@ -60,7 +62,7 @@ export function SingleGuessView({ guess }: SingleGuessViewProps) {
               <div className='flex items-center gap-2'>
                 <span>{guess.actual_display_name ?? 'Unknown'}</span>
               </div>
-              {Boolean(guess.actual_lat) && Boolean(guess.actual_lng) && (
+              {guess.actual_lat != null && guess.actual_lng != null && (
                 <div>
                   <a
                     href={`${GOOGLE_STREET_VIEW_BASE_URL}${guess.actual_lat},${guess.actual_lng}`}
