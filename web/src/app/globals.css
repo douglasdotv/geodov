@@ -87,6 +87,10 @@ body {
   }
 }
 
+.maplibregl-popup {
+  max-width: none !important;
+}
+
 .maplibregl-popup-content {
   background: transparent !important;
   padding: 0 !important;
@@ -119,5 +123,25 @@ body {
   to {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95);
+    opacity: 0;
   }
 }

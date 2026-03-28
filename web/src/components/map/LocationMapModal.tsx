@@ -1,5 +1,7 @@
-import { LocationMap } from '@/components/map/LocationMap';
+'use client';
 
+import { useState, useCallback } from 'react';
+import { LocationMap } from '@/components/map/LocationMap';
 interface LocationMapModalProps {
   readonly isOpen: boolean;
   readonly onClose: () => void;
@@ -21,15 +23,30 @@ export function LocationMapModal({
   guessLocation,
   actualLocation,
 }: LocationMapModalProps) {
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setClosing(true);
+    setTimeout(() => {
+      setClosing(false);
+      onClose();
+    }, 150);
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-[fadeIn_0.2s_ease-out]'>
-      <div className='glass shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden animate-[scaleIn_0.2s_ease-out]'>
-        <div className='flex justify-between items-center p-4 border-b border-divider'>
-          <h2 className='text-xl font-semibold'>Location Comparison</h2>
+    <div
+      className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 ${closing ? 'animate-[fadeOut_0.15s_ease-in_forwards]' : 'animate-[fadeIn_0.2s_ease-out]'}`}
+      onClick={handleClose}
+    >
+      <div
+        className={`glass shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden ${closing ? 'animate-[scaleOut_0.15s_ease-in_forwards]' : 'animate-[scaleIn_0.2s_ease-out]'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className='flex justify-end items-center p-2'>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className='text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
           >
             ✕
