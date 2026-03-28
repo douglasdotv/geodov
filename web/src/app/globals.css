@@ -87,6 +87,21 @@ body {
   }
 }
 
+.maplibregl-popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.maplibregl-popup-tip {
+  border-top-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .maplibregl-popup-tip {
+  border-top-color: rgba(15, 30, 55, 0.85) !important;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

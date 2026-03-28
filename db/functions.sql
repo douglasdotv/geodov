@@ -358,7 +358,9 @@ RETURNS TABLE (
     lat DOUBLE PRECISION,
     lng DOUBLE PRECISION,
     location TEXT,
+    country TEXT,
     game_type TEXT,
+    distance DOUBLE PRECISION,
     created_at TIMESTAMPTZ
 ) AS $$
     SELECT DISTINCT ON (g.game_id, g.round_number)
@@ -366,7 +368,9 @@ RETURNS TABLE (
         g.actual_lat as lat,
         g.actual_lng as lng,
         g.actual_display_name as location,
+        g.actual_country as country,
         g.game_type,
+        g.distance,
         g.created_at
     FROM guesses g
     WHERE (g.actual_lat BETWEEN min_lat AND max_lat AND g.actual_lng BETWEEN min_lng AND max_lng)

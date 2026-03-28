@@ -45,7 +45,9 @@ export interface GuessLocation {
   lat: number;
   lng: number;
   location: string | null;
+  country: string | null;
   game_type: string;
+  distance: number;
   created_at: string;
 }
 
