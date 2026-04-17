@@ -43,7 +43,7 @@ export function MovementRestrictionFilter({
       <select
         value={currentMovementRestriction ?? 'all'}
         onChange={handleChange}
-        className='w-full px-4 py-2 rounded-md border border-glass bg-transparent hover:bg-surface-hover transition-colors'
+        className='themed-select w-full px-4 py-2 rounded-md border border-glass hover:bg-surface-hover transition-colors'
         aria-label='Filter by movement restrictions'
       >
         <option value='all'>All Movement Restrictions</option>
