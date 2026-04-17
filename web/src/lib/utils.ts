@@ -1,11 +1,19 @@
 import { GuessQuality } from '@/types/guess';
-import lookup from 'country-code-lookup';
+import lookup, { countries } from 'country-code-lookup';
+
+const normalizeCountryName = (s: string) =>
+  s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 
 export function getCountryCode(countryName: string | null) {
   if (!countryName) return null;
   try {
-    const country = lookup.byCountry(countryName);
-    return country?.iso2 ?? null;
+    const exact = lookup.byCountry(countryName);
+    if (exact) return exact.iso2;
+    const target = normalizeCountryName(countryName);
+    return (
+      countries.find((c) => normalizeCountryName(c.country) === target)?.iso2 ??
+      null
+    );
   } catch {
     return null;
   }
