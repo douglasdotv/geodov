@@ -14,6 +14,12 @@ export interface RawCountryStats {
   average_distance: number;
 }
 
+export interface TopGuess {
+  id: string;
+  distance: number;
+  location: string | null;
+}
+
 export interface OverviewStats {
   totalRounds: number;
   totalGames: number;
@@ -21,16 +27,8 @@ export interface OverviewStats {
   correctCountryPercentage: number;
   averageDistance: number;
   averageTimeToGuess: number;
-  bestGuess: {
-    id: string;
-    distance: number;
-    location: string | null;
-  };
-  worstGuess: {
-    id: string;
-    distance: number;
-    location: string | null;
-  };
+  bestGuesses: TopGuess[];
+  worstGuesses: TopGuess[];
 }
 
 export interface GameTypeStats {

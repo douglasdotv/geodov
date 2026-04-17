@@ -18,6 +18,7 @@ import {
   getMovementStats,
 } from '@/app/actions';
 import { formatDistance, getCountryCode } from '@/lib/utils';
+import { FiChevronDown } from 'react-icons/fi';
 
 type Tab = 'overview' | 'countries';
 type Period = 'all' | 'month' | 'week';
@@ -39,9 +40,10 @@ function getPeriodDate(period: Period): string | undefined {
 }
 
 export function StatsModal({ isOpen, onClose }: StatsModalProps) {
-  const [activeTab, setActiveTab] = useState<Tab>('overview');
+  const [activeTab, setActiveTab] = useState<Tab>('countries');
   const [period, setPeriod] = useState<Period>('all');
   const [showAllCountries, setShowAllCountries] = useState(false);
+  const [showAllTopGuesses, setShowAllTopGuesses] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [pendingCountry, setPendingCountry] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -197,11 +199,11 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
 
         <div className='flex items-center justify-between px-4 pt-4'>
           <div className='flex gap-2'>
-            <button onClick={() => setActiveTab('overview')} className={tabClass('overview')}>
-              Overview
-            </button>
             <button onClick={() => setActiveTab('countries')} className={tabClass('countries')}>
               Countries
+            </button>
+            <button onClick={() => setActiveTab('overview')} className={tabClass('overview')}>
+              Overview
             </button>
           </div>
           <div className='flex gap-1'>
@@ -253,34 +255,74 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                     </div>
                   </div>
 
-                  <div className='grid md:grid-cols-2 gap-4'>
-                    <Link
-                      href={`/guess/${overviewStats.bestGuess.id}`}
-                      onClick={onClose}
-                      className='glass-subtle rounded-lg p-4 hover:bg-surface-hover transition-colors'
-                    >
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Best Guess</p>
-                      <p className='font-semibold mt-1 text-green-600 dark:text-green-400'>
-                        {formatDistance(overviewStats.bestGuess.distance)}
-                      </p>
-                      <p className='text-sm text-gray-500 dark:text-gray-400 truncate mt-1'>
-                        {overviewStats.bestGuess.location ?? 'Unknown'}
-                      </p>
-                    </Link>
-                    <Link
-                      href={`/guess/${overviewStats.worstGuess.id}`}
-                      onClick={onClose}
-                      className='glass-subtle rounded-lg p-4 hover:bg-surface-hover transition-colors'
-                    >
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Worst Guess</p>
-                      <p className='font-semibold mt-1 text-red-600 dark:text-red-400'>
-                        {formatDistance(overviewStats.worstGuess.distance)}
-                      </p>
-                      <p className='text-sm text-gray-500 dark:text-gray-400 truncate mt-1'>
-                        {overviewStats.worstGuess.location ?? 'Unknown'}
-                      </p>
-                    </Link>
-                  </div>
+                  {(overviewStats.bestGuesses.length > 0 ||
+                    overviewStats.worstGuesses.length > 0) && (
+                    <div className='space-y-4'>
+                      <div className='grid md:grid-cols-2 gap-4'>
+                        <div className='space-y-2'>
+                          <p className='text-sm text-gray-500 dark:text-gray-400'>
+                            {showAllTopGuesses ? 'Top 5 Best Guesses' : 'Best Guess'}
+                          </p>
+                          {(showAllTopGuesses
+                            ? overviewStats.bestGuesses
+                            : overviewStats.bestGuesses.slice(0, 1)
+                          ).map((g) => (
+                            <Link
+                              key={g.id}
+                              href={`/guess/${g.id}`}
+                              onClick={onClose}
+                              className='block glass-subtle rounded-lg p-4 hover:bg-surface-hover transition-colors'
+                            >
+                              <p className='font-semibold text-green-600 dark:text-green-400'>
+                                {formatDistance(g.distance)}
+                              </p>
+                              <p className='text-sm text-gray-500 dark:text-gray-400 truncate mt-1'>
+                                {g.location ?? 'Unknown'}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                        <div className='space-y-2'>
+                          <p className='text-sm text-gray-500 dark:text-gray-400'>
+                            {showAllTopGuesses ? 'Top 5 Worst Guesses' : 'Worst Guess'}
+                          </p>
+                          {(showAllTopGuesses
+                            ? overviewStats.worstGuesses
+                            : overviewStats.worstGuesses.slice(0, 1)
+                          ).map((g) => (
+                            <Link
+                              key={g.id}
+                              href={`/guess/${g.id}`}
+                              onClick={onClose}
+                              className='block glass-subtle rounded-lg p-4 hover:bg-surface-hover transition-colors'
+                            >
+                              <p className='font-semibold text-red-600 dark:text-red-400'>
+                                {formatDistance(g.distance)}
+                              </p>
+                              <p className='text-sm text-gray-500 dark:text-gray-400 truncate mt-1'>
+                                {g.location ?? 'Unknown'}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                      {(overviewStats.bestGuesses.length > 1 ||
+                        overviewStats.worstGuesses.length > 1) && (
+                        <div className='flex justify-center'>
+                          <button
+                            onClick={() => setShowAllTopGuesses(!showAllTopGuesses)}
+                            className='text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors flex items-center gap-1'
+                          >
+                            {showAllTopGuesses ? 'Show less' : 'Show more'}
+                            <FiChevronDown
+                              size={10}
+                              className={`transition-transform ${showAllTopGuesses ? 'rotate-180' : ''}`}
+                            />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {gameTypeStats.length > 0 && (
                     <div>
