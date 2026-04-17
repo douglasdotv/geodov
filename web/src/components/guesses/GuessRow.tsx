@@ -120,13 +120,16 @@ export function GuessRow({
         </div>
       </td>
       <td className='px-4 py-3'>
-        {renderLocation(guess.guess_display_name, guess.guess_country)}
+        {renderLocation(guess.actual_display_name, guess.actual_country)}
       </td>
       <td className='px-4 py-3'>
-        {renderLocation(guess.actual_display_name, guess.actual_country)}
+        {renderLocation(guess.guess_display_name, guess.guess_country)}
       </td>
       <td className='px-4 py-3 text-center'>
         <DistanceCell distance={guess.distance} />
+      </td>
+      <td className='px-4 py-3 text-center whitespace-nowrap text-gray-600 dark:text-gray-300'>
+        {getTimeToGuess(guess.guess_time, guess.round_start_time)}
       </td>
       <td
         className='px-4 py-3 text-center whitespace-nowrap text-gray-600 dark:text-gray-300'
@@ -135,9 +138,6 @@ export function GuessRow({
       >
         {formatRelativeTime(guess.guess_time)}
       </td>
-      <td className='px-4 py-3 text-center whitespace-nowrap text-gray-600 dark:text-gray-300'>
-        {getTimeToGuess(guess.guess_time, guess.round_start_time)}
-      </td>
       <td className='px-4 py-3'>
         <div className='flex justify-center gap-2'>
           {canShowMap && (
@@ -145,7 +145,7 @@ export function GuessRow({
               onClick={onShowMap}
               className='text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
               data-tooltip-id='guess-row-tooltip'
-              data-tooltip-content='Display guess and actual location on an interactive map'
+              data-tooltip-content='Display guess and location on an interactive map'
             >
               <FiMap />
             </button>
@@ -157,7 +157,7 @@ export function GuessRow({
               rel='noopener noreferrer'
               className='text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors'
               data-tooltip-id='guess-row-tooltip'
-              data-tooltip-content='Open actual location in Street View'
+              data-tooltip-content='Open location in Street View'
             >
               <FiGlobe />
             </a>

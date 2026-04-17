@@ -87,13 +87,13 @@ export function GuessesTable({
                     scope='col'
                     className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-left'
                   >
-                    Guess
+                    Location
                   </th>
                   <th
                     scope='col'
                     className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-left'
                   >
-                    Actual Location
+                    Guess
                   </th>
                   <th
                     scope='col'
@@ -105,19 +105,19 @@ export function GuessesTable({
                     scope='col'
                     className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-center'
                   >
-                    When
-                  </th>
-                  <th
-                    scope='col'
-                    className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-center'
-                  >
                     Time to Guess
                   </th>
                   <th
                     scope='col'
                     className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-center'
                   >
-                    View
+                    When
+                  </th>
+                  <th
+                    scope='col'
+                    className='whitespace-nowrap px-4 py-3 font-medium text-gray-900 dark:text-gray-100 text-center'
+                  >
+                    Actions
                   </th>
                 </tr>
               </thead>
