@@ -231,7 +231,7 @@ RETURNS TABLE (
   ORDER BY correct_percentage DESC;
 $$ LANGUAGE SQL;
 
--- Get overview stats (best/worst guess, avg time, total games)
+-- Get overview stats (top 5 best/worst guesses, avg time, total games)
 CREATE OR REPLACE FUNCTION get_overview_stats(from_date TIMESTAMPTZ DEFAULT NULL)
 RETURNS TABLE (
   total_rounds BIGINT,
@@ -240,12 +240,8 @@ RETURNS TABLE (
   correct_country_percentage DECIMAL,
   average_distance DECIMAL,
   average_time_to_guess DECIMAL,
-  best_guess_id UUID,
-  best_guess_distance DOUBLE PRECISION,
-  best_guess_location TEXT,
-  worst_guess_id UUID,
-  worst_guess_distance DOUBLE PRECISION,
-  worst_guess_location TEXT
+  best_guesses JSONB,
+  worst_guesses JSONB
 ) AS $$
   WITH stats AS (
     SELECT
@@ -261,20 +257,38 @@ RETURNS TABLE (
     WHERE (from_date IS NULL OR created_at >= from_date)
   ),
   best AS (
-    SELECT id, distance, actual_display_name
-    FROM guesses
-    WHERE distance IS NOT NULL
-    AND (from_date IS NULL OR created_at >= from_date)
-    ORDER BY distance ASC
-    LIMIT 1
+    SELECT COALESCE(
+      jsonb_agg(
+        jsonb_build_object('id', id, 'distance', distance, 'location', actual_display_name)
+        ORDER BY distance ASC
+      ),
+      '[]'::jsonb
+    ) as guesses
+    FROM (
+      SELECT id, distance, actual_display_name
+      FROM guesses
+      WHERE distance IS NOT NULL
+      AND (from_date IS NULL OR created_at >= from_date)
+      ORDER BY distance ASC
+      LIMIT 5
+    ) top_best
   ),
   worst AS (
-    SELECT id, distance, actual_display_name
-    FROM guesses
-    WHERE distance IS NOT NULL
-    AND (from_date IS NULL OR created_at >= from_date)
-    ORDER BY distance DESC
-    LIMIT 1
+    SELECT COALESCE(
+      jsonb_agg(
+        jsonb_build_object('id', id, 'distance', distance, 'location', actual_display_name)
+        ORDER BY distance DESC
+      ),
+      '[]'::jsonb
+    ) as guesses
+    FROM (
+      SELECT id, distance, actual_display_name
+      FROM guesses
+      WHERE distance IS NOT NULL
+      AND (from_date IS NULL OR created_at >= from_date)
+      ORDER BY distance DESC
+      LIMIT 5
+    ) top_worst
   )
   SELECT
     s.total_rounds,
@@ -283,12 +297,8 @@ RETURNS TABLE (
     s.correct_country_percentage,
     s.average_distance,
     s.average_time_to_guess,
-    b.id as best_guess_id,
-    b.distance as best_guess_distance,
-    b.actual_display_name as best_guess_location,
-    w.id as worst_guess_id,
-    w.distance as worst_guess_distance,
-    w.actual_display_name as worst_guess_location
+    b.guesses as best_guesses,
+    w.guesses as worst_guesses
   FROM stats s, best b, worst w;
 $$ LANGUAGE SQL;
 

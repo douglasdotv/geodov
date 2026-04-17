@@ -8,6 +8,7 @@ import {
   OverviewStats,
   GameTypeStats,
   MovementStats,
+  TopGuess,
 } from '@/types/stats';
 import { GuessLocation } from '@/types/guess';
 import { isRawCountryStats } from '@/lib/validation';
@@ -75,6 +76,15 @@ export async function getOverviewStats(fromDate?: string): Promise<OverviewStats
   if (!data || !data[0]) throw new Error('No overview stats returned');
 
   const row = data[0];
+  const parseTopGuesses = (raw: unknown): TopGuess[] => {
+    if (!Array.isArray(raw)) return [];
+    return raw.map((item) => ({
+      id: String((item as Record<string, unknown>).id),
+      distance: Number((item as Record<string, unknown>).distance),
+      location:
+        ((item as Record<string, unknown>).location as string | null) ?? null,
+    }));
+  };
   return {
     totalRounds: Number(row.total_rounds),
     totalGames: Number(row.total_games),
@@ -82,16 +92,8 @@ export async function getOverviewStats(fromDate?: string): Promise<OverviewStats
     correctCountryPercentage: Number(row.correct_country_percentage),
     averageDistance: Number(row.average_distance),
     averageTimeToGuess: Number(row.average_time_to_guess),
-    bestGuess: {
-      id: row.best_guess_id,
-      distance: Number(row.best_guess_distance),
-      location: row.best_guess_location,
-    },
-    worstGuess: {
-      id: row.worst_guess_id,
-      distance: Number(row.worst_guess_distance),
-      location: row.worst_guess_location,
-    },
+    bestGuesses: parseTopGuesses(row.best_guesses),
+    worstGuesses: parseTopGuesses(row.worst_guesses),
   };
 }
 
