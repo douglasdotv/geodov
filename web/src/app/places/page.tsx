@@ -25,7 +25,9 @@ export default function MapPage() {
   useEffect(() => {
     Promise.all([getCountryStats(), getOverviewStats()])
       .then(([stats, ov]) => {
-        const sorted = [...stats].sort((a, b) => b.totalGuesses - a.totalGuesses);
+        const sorted = [...stats].sort(
+          (a, b) => b.totalGuesses - a.totalGuesses,
+        );
         setCountryStats(sorted);
         setOverview(ov);
       })
@@ -43,7 +45,8 @@ export default function MapPage() {
           </h1>
           {overview && (
             <p className='mt-1 text-sm text-gray-500 dark:text-gray-400'>
-              {overview.totalRounds} rounds across {overview.totalCountries} countries
+              {overview.totalRounds} rounds across {overview.totalCountries}{' '}
+              countries
             </p>
           )}
         </div>

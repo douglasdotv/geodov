@@ -4,7 +4,8 @@ import { FiGithub } from 'react-icons/fi';
 export function Footer() {
   const playerName = process.env.G_USER ?? 'Mysterious User';
   const profileLink = process.env.G_PROFILE ?? 'https://www.geoguessr.com/';
-  const githubRepositoryUrl = process.env.GITHUB_REPOSITORY_URL ?? 'https://github.com/douglasdotv';
+  const githubRepositoryUrl =
+    process.env.GITHUB_REPOSITORY_URL ?? 'https://github.com/douglasdotv';
 
   return (
     <footer className='mt-auto py-6 border-t border-divider'>

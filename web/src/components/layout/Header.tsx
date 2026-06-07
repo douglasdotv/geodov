@@ -87,10 +87,7 @@ export function Header() {
                 Visited Places
                 {isPendingVisitedPlaces && <Spinner />}
               </button>
-              <button
-                onClick={handleStatsClick}
-                className={navLinkClassName}
-              >
+              <button onClick={handleStatsClick} className={navLinkClassName}>
                 Stats
               </button>
               <button onClick={handleAboutClick} className={navLinkClassName}>
@@ -170,10 +167,7 @@ export function Header() {
             </div>
           }
         >
-          <StatsModal
-            isOpen={showStats}
-            onClose={() => setShowStats(false)}
-          />
+          <StatsModal isOpen={showStats} onClose={() => setShowStats(false)} />
         </Suspense>
       )}
     </>

@@ -172,16 +172,12 @@ export function VisitedPlacesMap({
             'step',
             ['get', 'point_count'],
             '#7c3aed',
-            10, '#6d28d9',
-            50, '#5b21b6',
+            10,
+            '#6d28d9',
+            50,
+            '#5b21b6',
           ],
-          'circle-radius': [
-            'step',
-            ['get', 'point_count'],
-            18,
-            10, 24,
-            50, 32,
-          ],
+          'circle-radius': ['step', ['get', 'point_count'], 18, 10, 24, 50, 32],
           'circle-stroke-width': 2,
           'circle-stroke-color': 'rgba(255,255,255,0.4)',
         },
@@ -223,12 +219,17 @@ export function VisitedPlacesMap({
         if (!features.length) return;
 
         const clusterId = features[0].properties.cluster_id;
-        const source = map.current.getSource('locations') as maplibregl.GeoJSONSource;
+        const source = map.current.getSource(
+          'locations',
+        ) as maplibregl.GeoJSONSource;
 
         try {
           const zoom = await source.getClusterExpansionZoom(clusterId);
           map.current.easeTo({
-            center: (features[0].geometry as GeoJSON.Point).coordinates as [number, number],
+            center: (features[0].geometry as GeoJSON.Point).coordinates as [
+              number,
+              number,
+            ],
             zoom,
           });
         } catch {
@@ -240,7 +241,9 @@ export function VisitedPlacesMap({
         if (!map.current || !e.features?.length) return;
 
         const feature = e.features[0];
-        const coords = (feature.geometry as GeoJSON.Point).coordinates.slice() as [number, number];
+        const coords = (
+          feature.geometry as GeoJSON.Point
+        ).coordinates.slice() as [number, number];
         const props = feature.properties;
 
         if (!props) return;
@@ -308,7 +311,9 @@ export function VisitedPlacesMap({
   useEffect(() => {
     if (!map.current) return;
 
-    const source = map.current.getSource('locations') as maplibregl.GeoJSONSource | undefined;
+    const source = map.current.getSource('locations') as
+      | maplibregl.GeoJSONSource
+      | undefined;
     if (!source) return;
 
     const geojson: GeoJSON.FeatureCollection = {

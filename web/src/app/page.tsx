@@ -32,8 +32,9 @@ export default async function Home({ searchParams }: PageProps) {
   const to = from + ITEMS_PER_PAGE - 1;
 
   const { data: countries } = await supabase.rpc('get_unique_countries');
+  const availableCountries = countries ?? [];
   const country =
-    sp.country && countries?.includes(sp.country) ? sp.country : null;
+    sp.country && availableCountries.includes(sp.country) ? sp.country : null;
 
   const { data: countResult } = await supabase.rpc('get_total_rounds_count', {
     country_filter: country,
@@ -69,12 +70,15 @@ export default async function Home({ searchParams }: PageProps) {
       <div className='flex flex-col gap-4'>
         <TableControls
           currentSort={sort}
-          countries={countries}
+          countries={availableCountries}
           currentCountry={country}
           currentMovementRestriction={movement}
           currentGameType={gameType}
         />
-        <GuessesTable guesses={guesses} availableCountries={countries} />
+        <GuessesTable
+          guesses={guesses}
+          availableCountries={availableCountries}
+        />
         <PaginationControls
           currentPage={page}
           totalPages={totalPages}

@@ -10,7 +10,7 @@ import {
   MovementStats,
   TopGuess,
 } from '@/types/stats';
-import { GuessLocation } from '@/types/guess';
+import { Guess, GuessLocation } from '@/types/guess';
 import { isRawCountryStats } from '@/lib/validation';
 
 export async function deleteGuess(formData: FormData) {
@@ -38,7 +38,7 @@ export async function deleteGuess(formData: FormData) {
 export async function getAdditionalGuesses(
   gameId: string,
   roundNumber: number,
-) {
+): Promise<Guess[]> {
   const { data, error } = await supabase.rpc('get_additional_guesses', {
     game_id_param: gameId,
     round_number_param: roundNumber,
@@ -48,7 +48,9 @@ export async function getAdditionalGuesses(
   return data;
 }
 
-export async function getCountryStats(fromDate?: string): Promise<CountryStats[]> {
+export async function getCountryStats(
+  fromDate?: string,
+): Promise<CountryStats[]> {
   const { data, error } = await supabase.rpc('get_country_stats', {
     from_date: fromDate ?? null,
   });
@@ -67,7 +69,9 @@ export async function getCountryStats(fromDate?: string): Promise<CountryStats[]
   }));
 }
 
-export async function getOverviewStats(fromDate?: string): Promise<OverviewStats> {
+export async function getOverviewStats(
+  fromDate?: string,
+): Promise<OverviewStats> {
   const { data, error } = await supabase.rpc('get_overview_stats', {
     from_date: fromDate ?? null,
   });
@@ -97,7 +101,9 @@ export async function getOverviewStats(fromDate?: string): Promise<OverviewStats
   };
 }
 
-export async function getGameTypeStats(fromDate?: string): Promise<GameTypeStats[]> {
+export async function getGameTypeStats(
+  fromDate?: string,
+): Promise<GameTypeStats[]> {
   const { data, error } = await supabase.rpc('get_game_type_stats', {
     from_date: fromDate ?? null,
   });
@@ -112,7 +118,9 @@ export async function getGameTypeStats(fromDate?: string): Promise<GameTypeStats
   }));
 }
 
-export async function getMovementStats(fromDate?: string): Promise<MovementStats[]> {
+export async function getMovementStats(
+  fromDate?: string,
+): Promise<MovementStats[]> {
   const { data, error } = await supabase.rpc('get_movement_stats', {
     from_date: fromDate ?? null,
   });
@@ -127,7 +135,7 @@ export async function getMovementStats(fromDate?: string): Promise<MovementStats
   }));
 }
 
-export async function getGuessById(id: string) {
+export async function getGuessById(id: string): Promise<Guess> {
   const { data, error } = await supabase
     .from('guesses')
     .select('*')
@@ -135,7 +143,7 @@ export async function getGuessById(id: string) {
     .single();
 
   if (error) throw error;
-  return data;
+  return data as Guess;
 }
 
 export async function getLocationsInBounds(

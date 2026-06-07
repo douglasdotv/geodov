@@ -77,7 +77,9 @@ export function GuessRow({
     challenge: 'bg-blue-500/20 text-blue-700 dark:text-blue-300',
     br: 'bg-amber-500/20 text-amber-700 dark:text-amber-300',
   };
-  const badgeColor = badgeColors[gameTypeLabel] ?? 'bg-gray-500/20 text-gray-600 dark:text-gray-300';
+  const badgeColor =
+    badgeColors[gameTypeLabel] ??
+    'bg-gray-500/20 text-gray-600 dark:text-gray-300';
 
   let brTooltipContent: string;
   if (isLoading) {
@@ -92,7 +94,8 @@ export function GuessRow({
     ? 'bg-red-500/10 hover:bg-red-500/20'
     : 'hover:bg-surface-hover';
 
-  const hasActualLocation = guess.actual_lat != null && guess.actual_lng != null;
+  const hasActualLocation =
+    guess.actual_lat != null && guess.actual_lng != null;
   const hasGuessLocation = guess.guess_lat != null && guess.guess_lng != null;
   const canShowMap = hasActualLocation && hasGuessLocation;
 
@@ -111,7 +114,9 @@ export function GuessRow({
           </button>
         )}
         <div className='flex flex-col items-center gap-1'>
-          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${badgeColor}`}>
+          <span
+            className={`text-xs font-medium px-2 py-0.5 rounded-full ${badgeColor}`}
+          >
             {gameTypeLabel}
           </span>
           <span className='text-[10px] text-gray-500 dark:text-gray-400'>

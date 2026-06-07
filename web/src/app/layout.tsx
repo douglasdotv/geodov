@@ -57,9 +57,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Suspense
-            fallback={
-              <div className='h-16 border-b border-divider'></div>
-            }
+            fallback={<div className='h-16 border-b border-divider'></div>}
           >
             <Header />
           </Suspense>

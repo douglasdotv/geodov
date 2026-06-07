@@ -199,21 +199,36 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
 
         <div className='flex items-center justify-between px-4 pt-4'>
           <div className='flex gap-2'>
-            <button onClick={() => setActiveTab('countries')} className={tabClass('countries')}>
+            <button
+              onClick={() => setActiveTab('countries')}
+              className={tabClass('countries')}
+            >
               Countries
             </button>
-            <button onClick={() => setActiveTab('overview')} className={tabClass('overview')}>
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={tabClass('overview')}
+            >
               Overview
             </button>
           </div>
           <div className='flex gap-1'>
-            <button onClick={() => handlePeriodChange('week')} className={periodClass('week')}>
+            <button
+              onClick={() => handlePeriodChange('week')}
+              className={periodClass('week')}
+            >
               Last 7 Days
             </button>
-            <button onClick={() => handlePeriodChange('month')} className={periodClass('month')}>
+            <button
+              onClick={() => handlePeriodChange('month')}
+              className={periodClass('month')}
+            >
               Last 30 Days
             </button>
-            <button onClick={() => handlePeriodChange('all')} className={periodClass('all')}>
+            <button
+              onClick={() => handlePeriodChange('all')}
+              className={periodClass('all')}
+            >
               All Time
             </button>
           </div>
@@ -230,28 +245,52 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                 <div className='space-y-8'>
                   <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
                     <div className='glass-subtle rounded-lg p-4'>
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Total Rounds</p>
-                      <p className='text-2xl font-semibold mt-1'>{overviewStats.totalRounds}</p>
+                      <p className='text-sm text-gray-500 dark:text-gray-400'>
+                        Total Rounds
+                      </p>
+                      <p className='text-2xl font-semibold mt-1'>
+                        {overviewStats.totalRounds}
+                      </p>
                     </div>
                     <div className='glass-subtle rounded-lg p-4'>
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Total Games</p>
-                      <p className='text-2xl font-semibold mt-1'>{overviewStats.totalGames}</p>
+                      <p className='text-sm text-gray-500 dark:text-gray-400'>
+                        Total Games
+                      </p>
+                      <p className='text-2xl font-semibold mt-1'>
+                        {overviewStats.totalGames}
+                      </p>
                     </div>
                     <div className='glass-subtle rounded-lg p-4'>
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Countries Visited</p>
-                      <p className='text-2xl font-semibold mt-1'>{overviewStats.totalCountries}</p>
+                      <p className='text-sm text-gray-500 dark:text-gray-400'>
+                        Countries Visited
+                      </p>
+                      <p className='text-2xl font-semibold mt-1'>
+                        {overviewStats.totalCountries}
+                      </p>
                     </div>
                     <div className='glass-subtle rounded-lg p-4'>
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Country Accuracy</p>
-                      <p className='text-2xl font-semibold mt-1'>{overviewStats.correctCountryPercentage}%</p>
+                      <p className='text-sm text-gray-500 dark:text-gray-400'>
+                        Country Accuracy
+                      </p>
+                      <p className='text-2xl font-semibold mt-1'>
+                        {overviewStats.correctCountryPercentage}%
+                      </p>
                     </div>
                     <div className='glass-subtle rounded-lg p-4'>
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Avg Distance</p>
-                      <p className='text-2xl font-semibold mt-1'>{formatDistance(overviewStats.averageDistance)}</p>
+                      <p className='text-sm text-gray-500 dark:text-gray-400'>
+                        Avg Distance
+                      </p>
+                      <p className='text-2xl font-semibold mt-1'>
+                        {formatDistance(overviewStats.averageDistance)}
+                      </p>
                     </div>
                     <div className='glass-subtle rounded-lg p-4'>
-                      <p className='text-sm text-gray-500 dark:text-gray-400'>Avg Time to Guess</p>
-                      <p className='text-2xl font-semibold mt-1'>{formatTime(overviewStats.averageTimeToGuess)}</p>
+                      <p className='text-sm text-gray-500 dark:text-gray-400'>
+                        Avg Time to Guess
+                      </p>
+                      <p className='text-2xl font-semibold mt-1'>
+                        {formatTime(overviewStats.averageTimeToGuess)}
+                      </p>
                     </div>
                   </div>
 
@@ -261,7 +300,9 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                       <div className='grid md:grid-cols-2 gap-4'>
                         <div className='space-y-2'>
                           <p className='text-sm text-gray-500 dark:text-gray-400'>
-                            {showAllTopGuesses ? 'Top 5 Best Guesses' : 'Best Guess'}
+                            {showAllTopGuesses
+                              ? 'Top 5 Best Guesses'
+                              : 'Best Guess'}
                           </p>
                           {(showAllTopGuesses
                             ? overviewStats.bestGuesses
@@ -284,7 +325,9 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                         </div>
                         <div className='space-y-2'>
                           <p className='text-sm text-gray-500 dark:text-gray-400'>
-                            {showAllTopGuesses ? 'Top 5 Worst Guesses' : 'Worst Guess'}
+                            {showAllTopGuesses
+                              ? 'Top 5 Worst Guesses'
+                              : 'Worst Guess'}
                           </p>
                           {(showAllTopGuesses
                             ? overviewStats.worstGuesses
@@ -310,7 +353,9 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                         overviewStats.worstGuesses.length > 1) && (
                         <div className='flex justify-center'>
                           <button
-                            onClick={() => setShowAllTopGuesses(!showAllTopGuesses)}
+                            onClick={() =>
+                              setShowAllTopGuesses(!showAllTopGuesses)
+                            }
                             className='text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors flex items-center gap-1'
                           >
                             {showAllTopGuesses ? 'Show less' : 'Show more'}
@@ -326,7 +371,9 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
 
                   {gameTypeStats.length > 0 && (
                     <div>
-                      <h3 className='text-lg font-semibold mb-4'>By Game Type</h3>
+                      <h3 className='text-lg font-semibold mb-4'>
+                        By Game Type
+                      </h3>
                       <div className='overflow-x-auto'>
                         <table className='min-w-full'>
                           <thead>
@@ -334,20 +381,34 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                               <th className='text-left py-2 pr-4'>Type</th>
                               <th className='text-right py-2 px-4'>Rounds</th>
                               <th className='text-right py-2 px-4'>Accuracy</th>
-                              <th className='text-right py-2 px-4'>Avg Distance</th>
+                              <th className='text-right py-2 px-4'>
+                                Avg Distance
+                              </th>
                               <th className='text-right py-2 pl-4'>Avg Time</th>
                             </tr>
                           </thead>
                           <tbody>
                             {gameTypeStats.map((stat) => (
-                              <tr key={stat.gameType} className='border-b border-divider'>
+                              <tr
+                                key={stat.gameType}
+                                className='border-b border-divider'
+                              >
                                 <td className='py-2 pr-4 font-medium'>
-                                  {gameTypeLabels[stat.gameType] ?? stat.gameType}
+                                  {gameTypeLabels[stat.gameType] ??
+                                    stat.gameType}
                                 </td>
-                                <td className='text-right py-2 px-4'>{stat.totalRounds}</td>
-                                <td className='text-right py-2 px-4'>{stat.correctCountryPercentage}%</td>
-                                <td className='text-right py-2 px-4'>{formatDistance(stat.averageDistance)}</td>
-                                <td className='text-right py-2 pl-4'>{formatTime(stat.averageTimeToGuess)}</td>
+                                <td className='text-right py-2 px-4'>
+                                  {stat.totalRounds}
+                                </td>
+                                <td className='text-right py-2 px-4'>
+                                  {stat.correctCountryPercentage}%
+                                </td>
+                                <td className='text-right py-2 px-4'>
+                                  {formatDistance(stat.averageDistance)}
+                                </td>
+                                <td className='text-right py-2 pl-4'>
+                                  {formatTime(stat.averageTimeToGuess)}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -358,7 +419,9 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
 
                   {movementStats.length > 0 && (
                     <div>
-                      <h3 className='text-lg font-semibold mb-4'>By Movement Type</h3>
+                      <h3 className='text-lg font-semibold mb-4'>
+                        By Movement Type
+                      </h3>
                       <div className='overflow-x-auto'>
                         <table className='min-w-full'>
                           <thead>
@@ -366,18 +429,33 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                               <th className='text-left py-2 pr-4'>Type</th>
                               <th className='text-right py-2 px-4'>Rounds</th>
                               <th className='text-right py-2 px-4'>Accuracy</th>
-                              <th className='text-right py-2 px-4'>Avg Distance</th>
+                              <th className='text-right py-2 px-4'>
+                                Avg Distance
+                              </th>
                               <th className='text-right py-2 pl-4'>Avg Time</th>
                             </tr>
                           </thead>
                           <tbody>
                             {movementStats.map((stat) => (
-                              <tr key={stat.movementType} className='border-b border-divider'>
-                                <td className='py-2 pr-4 font-medium'>{stat.movementType}</td>
-                                <td className='text-right py-2 px-4'>{stat.totalRounds}</td>
-                                <td className='text-right py-2 px-4'>{stat.correctCountryPercentage}%</td>
-                                <td className='text-right py-2 px-4'>{formatDistance(stat.averageDistance)}</td>
-                                <td className='text-right py-2 pl-4'>{formatTime(stat.averageTimeToGuess)}</td>
+                              <tr
+                                key={stat.movementType}
+                                className='border-b border-divider'
+                              >
+                                <td className='py-2 pr-4 font-medium'>
+                                  {stat.movementType}
+                                </td>
+                                <td className='text-right py-2 px-4'>
+                                  {stat.totalRounds}
+                                </td>
+                                <td className='text-right py-2 px-4'>
+                                  {stat.correctCountryPercentage}%
+                                </td>
+                                <td className='text-right py-2 px-4'>
+                                  {formatDistance(stat.averageDistance)}
+                                </td>
+                                <td className='text-right py-2 pl-4'>
+                                  {formatTime(stat.averageTimeToGuess)}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -404,17 +482,26 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                     <>
                       <div className='grid md:grid-cols-2 gap-8'>
                         <div>
-                          <h3 className='text-lg font-semibold mb-4'>Top 5 Countries</h3>
+                          <h3 className='text-lg font-semibold mb-4'>
+                            Top 5 Countries
+                          </h3>
                           <div className='space-y-3'>
-                            {bestCountries.map((stat, i) => renderCountryRow(stat, i + 1))}
+                            {bestCountries.map((stat, i) =>
+                              renderCountryRow(stat, i + 1),
+                            )}
                           </div>
                         </div>
 
                         <div>
-                          <h3 className='text-lg font-semibold mb-4'>Bottom 5 Countries</h3>
+                          <h3 className='text-lg font-semibold mb-4'>
+                            Bottom 5 Countries
+                          </h3>
                           <div className='space-y-3'>
                             {worstCountries.map((stat) => {
-                              const rank = sortedCountries.findIndex((s) => s.country === stat.country) + 1;
+                              const rank =
+                                sortedCountries.findIndex(
+                                  (s) => s.country === stat.country,
+                                ) + 1;
                               return renderCountryRow(stat, rank);
                             })}
                           </div>
@@ -427,17 +514,24 @@ export function StatsModal({ isOpen, onClose }: StatsModalProps) {
                           className='px-4 py-2 bg-surface-hover rounded-md hover:bg-surface-active transition-colors flex items-center gap-2'
                           disabled={isPending}
                         >
-                          {showAllCountries ? 'Hide All Countries' : 'Show All Countries'}
+                          {showAllCountries
+                            ? 'Hide All Countries'
+                            : 'Show All Countries'}
                           {isPending && pendingCountry === null && <Spinner />}
                         </button>
                       </div>
 
                       {displayCountries && (
                         <div>
-                          <h3 className='text-lg font-semibold mb-4'>All Countries</h3>
+                          <h3 className='text-lg font-semibold mb-4'>
+                            All Countries
+                          </h3>
                           <div className='space-y-2'>
                             {displayCountries.map((stat) => {
-                              const rank = sortedCountries.findIndex((s) => s.country === stat.country) + 1;
+                              const rank =
+                                sortedCountries.findIndex(
+                                  (s) => s.country === stat.country,
+                                ) + 1;
                               return renderCountryRow(stat, rank);
                             })}
                           </div>

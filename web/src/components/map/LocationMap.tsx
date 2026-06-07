@@ -5,9 +5,14 @@ function isDarkMode() {
   return document.documentElement.classList.contains('dark');
 }
 
-function createMarkerElement(pinColor: string, textColor: string, label: string) {
+function createMarkerElement(
+  pinColor: string,
+  textColor: string,
+  label: string,
+) {
   const container = document.createElement('div');
-  container.style.cssText = 'display:flex;flex-direction:column;align-items:center;cursor:pointer';
+  container.style.cssText =
+    'display:flex;flex-direction:column;align-items:center;cursor:pointer';
 
   container.innerHTML = `
     <svg width="24" height="36" viewBox="0 0 24 36">
@@ -20,7 +25,11 @@ function createMarkerElement(pinColor: string, textColor: string, label: string)
   return container;
 }
 
-function buildMarkerPopupHTML(label: string, accentColor: string, locationName: string) {
+function buildMarkerPopupHTML(
+  label: string,
+  accentColor: string,
+  locationName: string,
+) {
   const dark = isDarkMode();
   const bg = dark ? 'rgba(15,30,55,0.85)' : 'rgba(255,255,255,0.85)';
   const border = dark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)';
@@ -95,7 +104,11 @@ export function LocationMap({
       if (!map.current) return;
 
       const guessEl = createMarkerElement('#8A2BE2', '#5B1A99', 'Guess');
-      const actualEl = createMarkerElement('#10B981', '#0A7B5C', 'Actual Location');
+      const actualEl = createMarkerElement(
+        '#10B981',
+        '#0A7B5C',
+        'Actual Location',
+      );
 
       const guessMarker = new maplibregl.Marker({ element: guessEl })
         .setLngLat([guessLng, guessLat])
@@ -120,7 +133,11 @@ export function LocationMap({
         closeOnMove: false,
         offset: 24,
       }).setHTML(
-        buildMarkerPopupHTML('Actual Location', '#10B981', actualLocation ?? 'Unknown'),
+        buildMarkerPopupHTML(
+          'Actual Location',
+          '#10B981',
+          actualLocation ?? 'Unknown',
+        ),
       );
 
       function bindMarkerInteraction(
@@ -147,8 +164,18 @@ export function LocationMap({
         });
       }
 
-      bindMarkerInteraction(guessMarker, guessPopup, [guessLng, guessLat], actualPopup);
-      bindMarkerInteraction(actualMarker, actualPopup, [actualLng, actualLat], guessPopup);
+      bindMarkerInteraction(
+        guessMarker,
+        guessPopup,
+        [guessLng, guessLat],
+        actualPopup,
+      );
+      bindMarkerInteraction(
+        actualMarker,
+        actualPopup,
+        [actualLng, actualLat],
+        guessPopup,
+      );
 
       map.current.addSource('route', {
         type: 'geojson',

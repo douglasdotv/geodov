@@ -70,10 +70,11 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                 className='text-blue-600 dark:text-blue-400 hover:underline'
               >
                 GeoGuessr
-              </a>, a game where you&apos;re dropped somewhere in the world using Google
-              Street View and have to guess your location. It shows how close
-              (or far) my guesses were from the actual locations, along with
-              details about the places I&apos;ve virtually came across.
+              </a>
+              , a game where you&apos;re dropped somewhere in the world using
+              Google Street View and have to guess your location. It shows how
+              close (or far) my guesses were from the actual locations, along
+              with details about the places I&apos;ve virtually came across.
             </p>
           </section>
 

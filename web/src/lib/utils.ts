@@ -2,7 +2,10 @@ import { GuessQuality } from '@/types/guess';
 import lookup, { countries } from 'country-code-lookup';
 
 const normalizeCountryName = (s: string) =>
-  s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  s
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase();
 
 export function getCountryCode(countryName: string | null) {
   if (!countryName) return null;
