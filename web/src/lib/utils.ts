@@ -1,26 +1,6 @@
 import { GuessQuality } from '@/types/guess';
-import lookup, { countries } from 'country-code-lookup';
 
-const normalizeCountryName = (s: string) =>
-  s
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '')
-    .toLowerCase();
-
-export function getCountryCode(countryName: string | null) {
-  if (!countryName) return null;
-  try {
-    const exact = lookup.byCountry(countryName);
-    if (exact) return exact.iso2;
-    const target = normalizeCountryName(countryName);
-    return (
-      countries.find((c) => normalizeCountryName(c.country) === target)?.iso2 ??
-      null
-    );
-  } catch {
-    return null;
-  }
-}
+export { getCountryCode } from './country';
 
 export function getGuessQuality(distance: number | null): GuessQuality {
   const distanceKm = distance === null ? null : distance / 1000;
